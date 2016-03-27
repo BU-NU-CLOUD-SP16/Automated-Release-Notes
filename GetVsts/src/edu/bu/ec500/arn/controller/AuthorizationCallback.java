@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpResponse;
@@ -31,8 +32,12 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.xml.sax.SAXException;
 
 import edu.bu.ec500.arn.bean.Authorization;
+import edu.bu.ec500.arn.bean.WorkItemDetails;
+import edu.bu.ec500.arn.bean.WorkItemResponse;
+import edu.bu.ec500.arn.tc.GetBuildDetails;
 
 public class AuthorizationCallback extends HttpServlet{
 
@@ -72,7 +77,13 @@ public void doGet(HttpServletRequest request, HttpServletResponse response) thro
     //System.out.println(auth.getRefreshtoken());
     //getVstsWorkItem(auth.getAccessToken());
 	//System.out.println("");
-	getVstsWorkItem();
+	ArrayList<String> workItems = new ArrayList<String>();
+	try {
+		workItems = GetBuildDetails.getWorkItems();
+	} catch (ParserConfigurationException | SAXException e) {
+		e.printStackTrace();
+	}
+	getAllVstsWorkItems(workItems);
 	
 }
 
@@ -147,9 +158,19 @@ private void getVstsWorkItem(String token) throws ClientProtocolException, IOExc
 	}
 }
 
-public void getVstsWorkItem() throws ClientProtocolException, IOException{
+void getAllVstsWorkItems(ArrayList<String> workItems) throws ClientProtocolException, IOException{
+	String commaSeperatedIds = "";
+	for(String id : workItems){
+		commaSeperatedIds = commaSeperatedIds+id+",";
+	}
+	commaSeperatedIds = commaSeperatedIds.substring(0, commaSeperatedIds.length()-1);
+	getVstsWorkItems(commaSeperatedIds);
+	
+}
+public void getVstsWorkItems(String ids) throws ClientProtocolException, IOException{
   	 HttpClient httpClient = HttpClientBuilder.create().build();
-       String url = "https://automatedreleasenotes.visualstudio.com/DefaultCollection/_apis/wit/workitems?ids=15&api-version=1.0";
+  	 	
+       String url = "https://automatedreleasenotes.visualstudio.com/DefaultCollection/_apis/wit/workitems?ids="+ids+"&api-version=1.0";
        String userName = "karunesh";
        String password = "Password@1";
        String authString = userName + ":" + password;
@@ -163,15 +184,22 @@ public void getVstsWorkItem() throws ClientProtocolException, IOException{
 
        InputStream responseStream = response.getEntity().getContent();
        ServletContext servletContext = getServletContext();
+       
+       ObjectMapper mapper = new ObjectMapper();
+       
+       WorkItemResponse workItemResponse = mapper.readValue(responseStream, WorkItemResponse.class);
+       
+       System.out.println("asd");
+       
    		//String path = servletContext.getRealPath("/WEB-INF/");
-       FileOutputStream fos = new FileOutputStream("c://Users//Karunesh//WorkitemResponse.txt");
+       /*FileOutputStream fos = new FileOutputStream("c://Users//Karunesh//WorkitemResponse.txt");
        
        int read = 0;
    	byte[] bytes = new byte[1024];
    	
    	while ((read = responseStream.read(bytes)) != -1) {
    		fos.write(bytes, 0, read);
-   	}
+   	}*/
   }
 }
 
