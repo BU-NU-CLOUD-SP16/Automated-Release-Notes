@@ -1,0 +1,8 @@
+edu\bu\ec500\bean\Change.class
+edu\bu\ec500\bean\WorkItemResponse.class
+edu\bu\ec500\bean\TCResponse.class
+edu\bu\ec500\bean\Authorization.class
+edu\bu\ec500\arnplugin\AppServer.class
+edu\bu\ec500\bean\WorkItemValue.class
+edu\bu\ec500\bean\WorkItemDetails.class
+edu\bu\ec500\tc\GetBuildDetails.class
