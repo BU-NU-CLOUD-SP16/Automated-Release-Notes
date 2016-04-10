@@ -1,0 +1,42 @@
+<component name="ArtifactManager">
+  <artifact name="plugin">
+    <output-path>$PROJECT_DIR$/out/artifacts/plugin</output-path>
+    <properties id="ant-postprocessing">
+      <options enabled="true">
+        <file>file://$PROJECT_DIR$/build/ant.build.xml</file>
+        <target>replace-tokens-in-teamcity-plugin-xml</target>
+      </options>
+    </properties>
+    <root id="root">
+      <element id="directory" name="agent">
+        <element id="archive" name="ARNPlugin.zip">
+          <element id="archive" name="ARNPlugin-agent.jar">
+            <element id="module-output" name="agent" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/jackson-core-asl-1.9.9.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/jackson-mapper-asl-1.9.9.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/httpclient-4.5.1.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/httpcore-4.4.3.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/hamcrest-core-1.3.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/commons-codec-1.9.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/commons-logging-1.2.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$TeamCityDistribution$/junit-4.11.jar" path-in-jar="/" />
+          </element>
+          <element id="file-copy" path="$PROJECT_DIR$/agent/teamcity-agent-plugin.xml" output-file-name="teamcity-plugin.xml" />
+          <element id="artifact" artifact-name="common-jar" />
+        </element>
+      </element>
+      <element id="directory" name="server">
+        <element id="archive" name="ARNPlugin-server.jar">
+          <element id="module-output" name="server" />
+        </element>
+        <element id="archive" name="ARNPlugin-resources.jar">
+          <element id="directory" name="buildServerResources">
+            <element id="dir-copy" path="$PROJECT_DIR$/server/resources" />
+          </element>
+        </element>
+        <element id="artifact" artifact-name="common-jar" />
+      </element>
+      <element id="file-copy" path="$PROJECT_DIR$/server/teamcity-server-plugin.xml" output-file-name="teamcity-plugin.xml" />
+    </root>
+  </artifact>
+</component>

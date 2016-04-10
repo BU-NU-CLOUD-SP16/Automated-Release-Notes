@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_common" default="compile.module.common">
+  <dirname property="module.common.basedir" file="${ant.file.module_common}"/>
+  
+  <property name="module.jdk.home.common" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.common" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.common" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.common" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="common.output.dir" value="${module.common.basedir}/../out/production/common"/>
+  <property name="common.testoutput.dir" value="${module.common.basedir}/../out/test/common"/>
+  
+  <path id="common.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="common.module.production.classpath">
+    <path refid="${module.jdk.classpath.common}"/>
+    <path refid="library.idea_annotations.jar.classpath"/>
+    <path refid="library.idea-openapi.classpath"/>
+    <path refid="library.common-api.classpath"/>
+  </path>
+  
+  <path id="common.runtime.production.module.classpath">
+    <pathelement location="${common.output.dir}"/>
+    <path refid="library.idea_annotations.jar.classpath"/>
+    <path refid="library.idea-openapi.classpath"/>
+    <path refid="library.common-api.classpath"/>
+  </path>
+  
+  <path id="common.module.classpath">
+    <path refid="${module.jdk.classpath.common}"/>
+    <pathelement location="${common.output.dir}"/>
+    <path refid="library.idea_annotations.jar.classpath"/>
+    <path refid="library.idea-openapi.classpath"/>
+    <path refid="library.common-api.classpath"/>
+  </path>
+  
+  <path id="common.runtime.module.classpath">
+    <pathelement location="${common.testoutput.dir}"/>
+    <pathelement location="${common.output.dir}"/>
+    <path refid="library.idea_annotations.jar.classpath"/>
+    <path refid="library.idea-openapi.classpath"/>
+    <path refid="library.common-api.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.common">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.common">
+    <patternset refid="excluded.from.module.common"/>
+  </patternset>
+  
+  
+  <target name="compile.module.common" depends="compile.module.common.production,compile.module.common.tests" description="Compile module common"/>
+  
+  <target name="compile.module.common.production" depends="register.custom.compilers" description="Compile module common; production classes"/>
+  
+  <target name="compile.module.common.tests" depends="register.custom.compilers,compile.module.common.production" description="compile module common; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.common" description="cleanup module">
+    <delete dir="${common.output.dir}"/>
+    <delete dir="${common.testoutput.dir}"/>
+  </target>
+</project>
