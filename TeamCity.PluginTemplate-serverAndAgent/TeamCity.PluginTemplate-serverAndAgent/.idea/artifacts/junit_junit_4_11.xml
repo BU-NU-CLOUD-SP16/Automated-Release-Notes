@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact name="junit_junit_4_11">
-    <output-path>$PROJECT_DIR$/out/artifacts/junit_junit_4_11</output-path>
-    <root id="root">
-      <element id="library" level="project" name="junit:junit:4.11" />
-    </root>
-  </artifact>
-</component>
