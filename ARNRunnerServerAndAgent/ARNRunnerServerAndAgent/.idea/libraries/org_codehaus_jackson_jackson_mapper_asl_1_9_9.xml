@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="org.codehaus.jackson:jackson-mapper-asl:1.9.9" type="repository">
+    <properties maven-id="org.codehaus.jackson:jackson-mapper-asl:1.9.9" />
+    <CLASSES>
+      <root url="jar://$TeamCityDistribution$/jackson-mapper-asl-1.9.9.jar!/" />
+      <root url="jar://$TeamCityDistribution$/jackson-core-asl-1.9.9.jar!/" />
+      <root url="jar://$TeamCityDistribution$/jackson-mapper-asl-1.9.9.jar!/" />
+      <root url="jar://$TeamCityDistribution$/jackson-core-asl-1.9.9.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
