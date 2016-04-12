@@ -13,3 +13,24 @@ When a build gets deployed, the business wants to know what the content of the b
 This often means a manual step in the CI process is necessary: the developer must look up the work items in the work item tracking software, and enter them manually into the release tracking software.
 The goal of this project is to eliminate that manual step of entering release notes by integrating the build pipeline 
 with Work Item Tracking software.
+
+Features
+Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio).
+
+Downloading Build
+Download the latest version of Teamcity.
+
+Installation
+You will need Teamcity Server and compatible Teamcity Build agents that can run under JRE 1.7+ .
+To install plugin, start Teamcity Server and open the Administration menu. Go to plugin list in bottom left of page and upload the plugin by choosing the upload plugin .zip option. 
+
+Building
+Open the project in IntelliJ IDEA.
+Build all artifacts.
+
+In this repo you will find
+**
+Dependencies 
+**
+Packaging Instructions
+**
