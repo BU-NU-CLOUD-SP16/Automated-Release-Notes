@@ -83,8 +83,8 @@ public class GetBuildDetails {
 		String bNumber;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String url = "http://localhost/httpAuth/api/buildTypes/id:CloudcomputingARN_BuildF/builds?count=1";
-		String userName = "seshank4";
-	    String password = "Password@1";
+		String userName = "karunesh";
+	    String password = "teamcity";
 	    String authString = userName + ":" + password;
 	    byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
 	    String authStringEnc = new String(authEncBytes);
