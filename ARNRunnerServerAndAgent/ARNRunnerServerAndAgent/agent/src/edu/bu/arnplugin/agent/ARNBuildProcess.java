@@ -277,7 +277,7 @@ public class ARNBuildProcess implements BuildProcess {
       try {
 
         byte[] b1 = content.getBytes();
-        fos.write(b2);
+
         fos.write(b1);
 
 
