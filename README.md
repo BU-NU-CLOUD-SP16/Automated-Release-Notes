@@ -14,7 +14,7 @@ This often means a manual step in the CI process is necessary: the developer mus
 The goal of this project is to eliminate that manual step of entering release notes by integrating the build pipeline 
 with Work Item Tracking software.
 
-Features
+# Features
 Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio).
 
 Downloading Build
