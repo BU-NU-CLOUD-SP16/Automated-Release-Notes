@@ -10,10 +10,12 @@ Download the latest version of Teamcity.
 # Installation
 You will need Teamcity Server and compatible Teamcity Build agents that can run under JRE 1.7+ . To install plugin, start Teamcity Server and open the Administration menu. Go to plugin list in bottom left of page and upload the plugin by choosing the upload plugin .zip option.
 
- # Building
- Open the project in IntelliJ IDEA. Build all artifacts. 
+# Building
+ Open the project in IntelliJ IDEA.
+ Build all artifacts. 
 
-# In this repo you will find ** 
+# In this repo you will find 
+** 
 
 # Dependencies 
 ** 
