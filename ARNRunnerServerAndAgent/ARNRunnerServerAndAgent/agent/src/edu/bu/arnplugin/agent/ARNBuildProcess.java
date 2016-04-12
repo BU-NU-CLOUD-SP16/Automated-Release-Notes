@@ -34,13 +34,16 @@ public class ARNBuildProcess implements BuildProcess {
 
   private final AgentRunningBuild runningBuild;
   private final BuildRunnerContext context;
+  jetbrains.buildServer.agent.BuildProgressLogger logger;
+  String filePath;
+
   ARNBuildProcess(@NotNull AgentRunningBuild runningBuild, @NotNull BuildRunnerContext context){
 
     this.runningBuild = runningBuild;
     this.context = context;
   }
   public void start() throws RunBuildException {
-    jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
+    this.logger = runningBuild.getBuildLogger();
     logger.message("***************************************ARN Build Started************************************************");
     String buildNo = this.runningBuild.getBuildNumber();
 
@@ -55,7 +58,8 @@ public class ARNBuildProcess implements BuildProcess {
     for(String s : parameters.keySet()){
       logger.message("Key Build : "+ s + "value : "+ parameters.get(s));
     }
-
+    this.filePath = parameters.get("system.agent.work.dir");
+    logger.message("filePath :"+this.filePath);
     logger.message("getting work items");
     try {
       workItems = GetBuildDetails.getWorkItems(buildNo,logger);
@@ -191,7 +195,7 @@ public class ARNBuildProcess implements BuildProcess {
     httpGet.setHeader("Accept", "application/json");
     httpGet.setHeader("Authorization", "Basic " + authStringEnc);
     HttpResponse response = httpClient.execute(httpGet);
-
+    logger.message("vsts response : "+ response.getStatusLine().getStatusCode());
     InputStream responseStream = response.getEntity().getContent();
 
 /*ServletContext servletContext = getServletContext();*/
@@ -202,21 +206,81 @@ public class ARNBuildProcess implements BuildProcess {
 
       WorkItemResponse workItemResponse = mapper.readValue(responseStream, WorkItemResponse.class);
 
+      if(workItemResponse!=null) {
+        logger.message("size : "+workItemResponse.getValues().size());
+        logger.message(workItemResponse.getValues().get(0).getId());
+        createFormattedFile(workItemResponse);
 
-    System.out.println("asd");
+
+      }
+    /*System.out.println("asd");
 
     //String path = servletContext.getRealPath("/WEB-INF/");
-       FileOutputStream fos = new FileOutputStream("WorkitemResponse.txt");
+       FileOutputStream fos = new FileOutputStream("C:\\TeamCity\\WorkitemResponse.txt");
 
        int read = 0;
    	byte[] bytes = new byte[1024];
 
    	while ((read = responseStream.read(bytes)) != -1) {
    		fos.write(bytes, 0, read);
-   	}
+   	}*/
     jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
 
     logger.message("getting work items");
+  }
+
+  private void createFormattedFile(WorkItemResponse workItemResponse) {
+
+    for(int i=0;i<workItemResponse.getValues().size();i++){
+logger.message("i ="+i +" :"+ filePath);
+      File file = new File(filePath+"\\changes.txt");
+      try {
+       boolean isCreated = file.createNewFile();
+        logger.message("File created :"+isCreated);
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      BufferedReader bf = null;
+      try {
+        bf = new BufferedReader(new FileReader(file));
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      }
+      String preContent = "";
+      StringBuilder sb = new StringBuilder("");
+
+      try {
+        while (preContent != null) {
+          preContent = bf.readLine();
+          sb.append(preContent);
+          sb.append("\n");
+        }
+        bf.close();
+      }catch (IOException e){
+        e.printStackTrace();
+      }
+      logger.message("sb.toString : "+sb.toString());
+      byte[] b2 = sb.toString().getBytes();
+
+      String id = workItemResponse.getValues().get(i).getId();
+      String description = workItemResponse.getValues().get(i).getFields().getDescription();
+      String title = workItemResponse.getValues().get(i).getFields().getTitle();
+      String content;
+      content = "id:" +id + "\n"+ "Title:" + title  + "\n" +"Description:" + description;
+      logger.message("content : "+content);
+      try {
+        FileOutputStream fos = new FileOutputStream(filePath+"\\changes.txt");
+        byte[] b1 = content.getBytes();
+        fos.write(b2);
+        fos.write(b1);
+
+        fos.close();
+        logger.message("done");
+      }catch (IOException e){
+        e.printStackTrace();
+      }
+    }
+
   }
 
 
