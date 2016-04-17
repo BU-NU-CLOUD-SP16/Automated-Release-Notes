@@ -85,13 +85,10 @@ public class ARNBuildProcess implements BuildProcess {
     try {
       workItems = GetBuildDetails.getWorkItems(buildNo,logger, tcURL, tcUserName, tcPassword);
     } catch (IOException e) {
-      logger.error("Incorrect Teamcity URL/Credentials");
-      logger.message(e.getMessage());
+      e.printStackTrace();
     } catch (ParserConfigurationException e) {
-      logger.message("ParserConfig Exception");
       e.printStackTrace();
     } catch (SAXException e) {
-      logger.message("SAX Exception");
       e.printStackTrace();
     }
     logger.message("fetched work items");
@@ -107,7 +104,6 @@ public class ARNBuildProcess implements BuildProcess {
         logger.message("No Changes in the current build");
       }
     } catch (IOException e) {
-      logger.error("Incorrect VSTS URL/Credentials");
       e.printStackTrace();
     }
   }
@@ -294,14 +290,37 @@ public class ARNBuildProcess implements BuildProcess {
 
       FileOutputStream fos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt");
 
+
     for(int i=0;i<workItemResponse.getValues().size();i++){
 
       String id = workItemResponse.getValues().get(i).getId();
       String description = workItemResponse.getValues().get(i).getFields().getDescription();
       String title = workItemResponse.getValues().get(i).getFields().getTitle();
+      String assignedTo = workItemResponse.getValues().get(i).getFields().getAssignedTo();
+      String storyPoints = workItemResponse.getValues().get(i).getFields().getStoryPoints();
       String content;
       String eol = System.getProperty("line.separator");
-      content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
+      String tempFormatString = this.inputFormatString;
+
+      //content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
+      if(id!=null) {
+        tempFormatString = tempFormatString.replace("${WorkItemId}", id);
+      }
+      if(title !=null) {
+        tempFormatString = tempFormatString.replace("${WorkItemTitle}", title);
+      }
+      if(description != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemDescription}", description);
+      }
+      if(assignedTo != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", assignedTo);
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      }
+
+
+      content = tempFormatString;
       logger.message("content : "+content);
       try {
 
