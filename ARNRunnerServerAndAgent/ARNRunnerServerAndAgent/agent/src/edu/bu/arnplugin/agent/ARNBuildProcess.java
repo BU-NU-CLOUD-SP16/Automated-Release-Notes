@@ -316,99 +316,102 @@ public class ARNBuildProcess implements BuildProcess {
       String eol = System.getProperty("line.separator");
       String tempFormatString = this.inputFormatString;
 
-      //content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
+      if(tempFormatString==null){
+        content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
+      }
+      else {
+        if(id!=null) {
+          tempFormatString = tempFormatString.replace("${WorkItemId}", id);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemId}", "");
+        }
+        if(title !=null) {
+          tempFormatString = tempFormatString.replace("${WorkItemTitle}", title);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemTitle}", "");
+        }
+        if(description != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemDescription}", description);
+        } else{
+          tempFormatString = tempFormatString.replace("${WorkItemDescription}", "");
+        }
+        if(assignedTo != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", assignedTo);
+        }else {
+          tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", "");
+        }
+        if(storyPoints != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        }
+        if(teamProject != null) {
+          tempFormatString = tempFormatString.replace("${TeamProject}", teamProject);
+        } else {
+          tempFormatString = tempFormatString.replace("${TeamProject}", "");
+        }
+        if(workItemType != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemType}", workItemType);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemType}", "");
+        }
+        if(state != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemState}", state);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemState}", "");
+        }
+        if(priority != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemPriority}", priority);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemPriority}", "");
+        }
+        if(risk != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemRisk}", risk);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemRisk}", "");
+        }
+        if(area != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemArea}", area);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemArea}", "");
+        }
+        if(iteration != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemIteration}", iteration);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemIteration}", "");
+        }
+        if(lastUpdatedBy != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", lastUpdatedBy);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", "");
+        }
+        if(statusReason != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", statusReason);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", "");
+        }
+        if(workItemTag != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemTags}", workItemTag);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemTags}", "");
+        }
+        if(acceptanceCriteria != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", acceptanceCriteria);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", "");
+        }
+        if(valueArea != null) {
+          tempFormatString = tempFormatString.replace("${WorkItemValueArea}", valueArea);
+        } else {
+          tempFormatString = tempFormatString.replace("${WorkItemValueArea}", "");
+        }
 
-
-      if(id!=null) {
-        tempFormatString = tempFormatString.replace("${WorkItemId}", id);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemId}", "");
+        content = tempFormatString;
+        content = content.replaceAll("\\n",eol)+eol+eol;
       }
-      if(title !=null) {
-        tempFormatString = tempFormatString.replace("${WorkItemTitle}", title);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemTitle}", "");
-      }
-      if(description != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemDescription}", description);
-      } else{
-        tempFormatString = tempFormatString.replace("${WorkItemDescription}", "");
-      }
-      if(assignedTo != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", assignedTo);
-      }else {
-        tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", "");
-      }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
-      }
-      if(teamProject != null) {
-        tempFormatString = tempFormatString.replace("${TeamProject}", teamProject);
-      } else {
-        tempFormatString = tempFormatString.replace("${TeamProject}", "");
-      }
-      if(workItemType != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemType}", workItemType);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemType}", "");
-      }
-      if(state != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemState}", state);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemState}", "");
-      }
-      if(priority != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemPriority}", priority);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemPriority}", "");
-      }
-      if(risk != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemRisk}", risk);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemRisk}", "");
-      }
-      if(area != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemArea}", area);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemArea}", "");
-      }
-      if(iteration != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemIteration}", iteration);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemIteration}", "");
-      }
-      if(lastUpdatedBy != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", lastUpdatedBy);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", "");
-      }
-      if(statusReason != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", statusReason);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", "");
-      }
-      if(workItemTag != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemTags}", workItemTag);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemTags}", "");
-      }
-      if(acceptanceCriteria != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", acceptanceCriteria);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", "");
-      }
-      if(valueArea != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemValueArea}", valueArea);
-      } else {
-        tempFormatString = tempFormatString.replace("${WorkItemValueArea}", "");
-      }
-
-      content = tempFormatString;
-      content = content.replaceAll("\\n",eol)+eol+eol;
 
       logger.message("content : "+content);
+
       try {
         byte[] b1 = content.getBytes();
         fos.write(b1);
