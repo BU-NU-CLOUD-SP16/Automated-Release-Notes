@@ -35,7 +35,14 @@ public class ARNBuildProcess implements BuildProcess {
   private final AgentRunningBuild runningBuild;
   private final BuildRunnerContext context;
   jetbrains.buildServer.agent.BuildProgressLogger logger;
-  String filePath;
+  private String filePath;
+  private String vstsURL;
+  private String vstsUserName;
+  private  String vstsPassword;
+  private  String tcURL;
+  private String tcUserName;
+  private String tcPassword;
+  private String inputFormatString;
 
   ARNBuildProcess(@NotNull AgentRunningBuild runningBuild, @NotNull BuildRunnerContext context){
 
@@ -57,14 +64,26 @@ public class ARNBuildProcess implements BuildProcess {
     }
 
     final Map<String, String> parameters = context.getBuildParameters().getAllParameters();
+
+
+
+    vstsURL = runnerParameters.get("vsts_url");
+    vstsUserName = runnerParameters.get("vsts_user_name");
+    vstsPassword = runnerParameters.get("vsts_password");
+    tcURL = runnerParameters.get("tc_url");
+    tcUserName = runnerParameters.get("tc_user_name");
+    tcPassword = runnerParameters.get("tc_password");
+    inputFormatString = runnerParameters.get("format_string");
+
     for(String s : parameters.keySet()){
       logger.message("Key Build : "+ s + "value : "+ parameters.get(s));
     }
     this.filePath = parameters.get("system.agent.work.dir");
     logger.message("filePath :"+this.filePath);
     logger.message("getting work items");
+
     try {
-      workItems = GetBuildDetails.getWorkItems(buildNo,logger);
+      workItems = GetBuildDetails.getWorkItems(buildNo,logger, tcURL, tcUserName, tcPassword);
     } catch (IOException e) {
       e.printStackTrace();
     } catch (ParserConfigurationException e) {
@@ -80,7 +99,7 @@ public class ARNBuildProcess implements BuildProcess {
 
     try {
       if(workItems.size()>0) {
-        getAllVstsWorkItems(workItems);
+        getAllVstsWorkItems(workItems, vstsURL, vstsUserName, vstsPassword);
       }else{
         logger.message("No Changes in the current build");
       }
@@ -159,6 +178,10 @@ public class ARNBuildProcess implements BuildProcess {
     HttpResponse response = httpClient.execute(httpGet);
     InputStream responseStream = response.getEntity().getContent();
 
+    if(response.getStatusLine().getStatusCode()!=200){
+      logger.error("Incorrect VSTS URL/Credentials");
+    }
+
 //String path = servletContext.getRealPath("/WEB-INF/");
     //ServletContext servletContext = getServletContext();
 
@@ -172,7 +195,7 @@ public class ARNBuildProcess implements BuildProcess {
     }
   }
 
-  public void getAllVstsWorkItems(ArrayList<String> workItems) throws ClientProtocolException, IOException{
+  public void getAllVstsWorkItems(ArrayList<String> workItems, String vstsURL, String vstsUserName, String vstsPassword) throws ClientProtocolException, IOException{
     String commaSeperatedIds = "";
     for(String id : workItems){
       commaSeperatedIds = commaSeperatedIds+id+",";
@@ -186,9 +209,9 @@ public class ARNBuildProcess implements BuildProcess {
   public void getVstsWorkItems(String ids) throws ClientProtocolException, IOException, JsonMappingException {
     HttpClient httpClient = HttpClientBuilder.create().build();
 
-    String url = "https://automatedreleasenotes.visualstudio.com/DefaultCollection/_apis/wit/workitems?ids="+ids+"&api-version=1.0";
-    String userName = "karunesh";
-    String password = "Password@1";
+    String url = vstsURL+"/DefaultCollection/_apis/wit/workitems?ids="+ids+"&api-version=1.0";
+    String userName = vstsUserName;
+    String password = vstsPassword;
     String authString = userName + ":" + password;
     byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
     String authStringEnc = new String(authEncBytes);
