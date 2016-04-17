@@ -40,6 +40,12 @@ public class WorkItemDetails {
 	@JsonProperty("System.Description") 
 	private String description;
 
+  @JsonProperty("System.AssignedTo")
+  private String assignedTo;
+
+  @JsonProperty("Microsoft.VSTS.Scheduling.StoryPoints")
+  private String storyPoints;
+
 	public String getTeamProject() {
 		return teamProject;
 	}
@@ -88,5 +94,19 @@ public class WorkItemDetails {
 		this.description = description;
 	}
 
-	
+  public String getAssignedTo() {
+    return assignedTo;
+  }
+
+  public void setAssignedTo(String assignedTo) {
+    this.assignedTo = assignedTo;
+  }
+
+  public String getStoryPoints() {
+    return storyPoints;
+  }
+
+  public void setStoryPoints(String storyPoints) {
+    this.storyPoints = storyPoints;
+  }
 }
