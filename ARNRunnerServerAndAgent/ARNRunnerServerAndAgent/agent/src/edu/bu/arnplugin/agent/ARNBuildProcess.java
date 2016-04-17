@@ -229,10 +229,11 @@ public class ARNBuildProcess implements BuildProcess {
     logger.message("getting work items");
   }
 
-  private void createFormattedFile(WorkItemResponse workItemResponse) {
+  private void createFormattedFile(WorkItemResponse workItemResponse) throws IOException {
 
-    for(int i=0;i<workItemResponse.getValues().size();i++){
-logger.message("i ="+i +" :"+ filePath);
+
+
+      /*logger.message("i ="+i +" :"+ filePath) ;
       File file = new File(filePath+"\\changes.txt");
       try {
        boolean isCreated = file.createNewFile();
@@ -260,26 +261,33 @@ logger.message("i ="+i +" :"+ filePath);
         e.printStackTrace();
       }
       logger.message("sb.toString : "+sb.toString());
-      byte[] b2 = sb.toString().getBytes();
+      byte[] b2 = sb.toString().getBytes();*/
+
+      FileOutputStream fos = new FileOutputStream(filePath+"\\changes.txt");
+
+    for(int i=0;i<workItemResponse.getValues().size();i++){
 
       String id = workItemResponse.getValues().get(i).getId();
       String description = workItemResponse.getValues().get(i).getFields().getDescription();
       String title = workItemResponse.getValues().get(i).getFields().getTitle();
       String content;
-      content = "id:" +id + "\n"+ "Title:" + title  + "\n" +"Description:" + description;
+      String eol = System.getProperty("line.separator");
+      content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
       logger.message("content : "+content);
       try {
-        FileOutputStream fos = new FileOutputStream(filePath+"\\changes.txt");
+
         byte[] b1 = content.getBytes();
-        fos.write(b2);
+
         fos.write(b1);
 
-        fos.close();
+
         logger.message("done");
       }catch (IOException e){
         e.printStackTrace();
       }
+
     }
+    fos.close();
 
   }
 
