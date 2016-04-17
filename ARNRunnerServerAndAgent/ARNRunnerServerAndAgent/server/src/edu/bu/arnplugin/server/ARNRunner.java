@@ -19,6 +19,7 @@ package edu.bu.arnplugin.server;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
 import jetbrains.buildServer.serverSide.RunTypeRegistry;
+import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +31,10 @@ import java.util.Map;
  */
 public class ARNRunner extends RunType{
 
-  public ARNRunner(final RunTypeRegistry registry){
+  private final PluginDescriptor pluginDescriptor;
+
+  public ARNRunner(final RunTypeRegistry registry, final PluginDescriptor pluginDescriptor){
+    this.pluginDescriptor = pluginDescriptor;
     registry.registerRunType(this);
   }
   @NotNull
@@ -55,12 +59,12 @@ public class ARNRunner extends RunType{
 
   @Nullable
   public String getEditRunnerParamsJspFilePath() {
-    return null;
+    return pluginDescriptor.getPluginResourcesPath("editRunnerRunParameters.jsp");
   }
 
   @Nullable
   public String getViewRunnerParamsJspFilePath() {
-    return null;
+    return pluginDescriptor.getPluginResourcesPath("viewRunnerRunParameters.jsp");
   }
 
   @Nullable
@@ -75,6 +79,6 @@ public class ARNRunner extends RunType{
   @Override
   public String describeParameters(@NotNull final Map<String, String> parameters){
 
-    return "BuildNo: argument.build_no";
+    return "File Path: file_path";
   }
 }
