@@ -85,10 +85,13 @@ public class ARNBuildProcess implements BuildProcess {
     try {
       workItems = GetBuildDetails.getWorkItems(buildNo,logger, tcURL, tcUserName, tcPassword);
     } catch (IOException e) {
-      e.printStackTrace();
+      logger.error("Incorrect Teamcity URL/Credentials");
+      logger.message(e.getMessage());
     } catch (ParserConfigurationException e) {
+      logger.message("ParserConfig Exception");
       e.printStackTrace();
     } catch (SAXException e) {
+      logger.message("SAX Exception");
       e.printStackTrace();
     }
     logger.message("fetched work items");
@@ -104,6 +107,7 @@ public class ARNBuildProcess implements BuildProcess {
         logger.message("No Changes in the current build");
       }
     } catch (IOException e) {
+      logger.error("Incorrect VSTS URL/Credentials");
       e.printStackTrace();
     }
   }

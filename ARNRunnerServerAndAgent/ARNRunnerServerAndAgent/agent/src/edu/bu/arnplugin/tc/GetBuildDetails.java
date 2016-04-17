@@ -45,8 +45,10 @@ public class GetBuildDetails {
 	    HttpGet httpGet = new HttpGet(url);
 	    httpGet.setHeader("Accept", "application/json");
 	    httpGet.setHeader("Authorization", "Basic " + authStringEnc);
-	    
+
+
 	    HttpResponse response = httpClient.execute(httpGet);
+
 			logger.message("Status code :"+response.getStatusLine().getStatusCode());
 
 			if(response.getStatusLine().getStatusCode()!=200){
