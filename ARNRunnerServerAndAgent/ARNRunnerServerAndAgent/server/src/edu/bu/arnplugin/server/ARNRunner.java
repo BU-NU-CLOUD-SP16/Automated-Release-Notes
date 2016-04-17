@@ -16,6 +16,7 @@
 
 package edu.bu.arnplugin.server;
 
+import jetbrains.buildServer.serverSide.InvalidProperty;
 import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
 import jetbrains.buildServer.serverSide.RunTypeRegistry;
@@ -23,6 +24,8 @@ import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +57,31 @@ public class ARNRunner extends RunType{
 
   @Nullable
   public PropertiesProcessor getRunnerPropertiesProcessor() {
-    return null;
+    return new PropertiesProcessor() {
+      private void checkNotEmpty(@NotNull final Map<String, String> properties,
+                                 @NotNull final String key,
+                                 @NotNull final String message,
+                                 @NotNull final Collection<InvalidProperty> res) {
+        if (jetbrains.buildServer.util.StringUtil.isEmptyOrSpaces(properties.get(key))) {
+          res.add(new InvalidProperty(key, message));
+        }
+      }
+
+      public Collection<InvalidProperty> process(Map<String, String> properties) {
+        final Collection<InvalidProperty> result = new ArrayList<InvalidProperty>();
+        if (properties == null) return result;
+
+        checkNotEmpty(properties, "file_path", "File Path must be specified", result);
+        checkNotEmpty(properties, "vsts_url", "VSTS URL must be specified", result);
+        checkNotEmpty(properties, "vsts_user_name", "VSTS User Name must be specified", result);
+        checkNotEmpty(properties, "vsts_password", "VSTS Password must be specified", result);
+        checkNotEmpty(properties, "tc_url", "Teamcity URL must be specified", result);
+        checkNotEmpty(properties, "tc_user_name", "Teamcity User Name must be specified", result);
+        checkNotEmpty(properties, "tc_password", "Teamcity Password must be specified", result);
+
+        return result;
+      }
+    };
   }
 
   @Nullable

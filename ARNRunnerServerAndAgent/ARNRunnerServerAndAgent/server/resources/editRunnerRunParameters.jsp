@@ -16,7 +16,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:textProperty name="file_path" style="width:32em;"/>
-
+        <span class="error" id="error_file_path"></span>
     </td>
 </tr>
 
@@ -26,6 +26,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:textProperty name="vsts_url" style="width:32em;"/>
+        <span class="error" id="error_vsts_url"></span>
     </td>
 </tr>
 
@@ -35,6 +36,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:textProperty name="vsts_user_name" style="width:32em;"/>
+        <span class="error" id="error_vsts_user_name"></span>
     </td>
 </tr>
 
@@ -44,6 +46,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:passwordProperty name="vsts_password" style="width:32em;"/>
+        <span class="error" id="error_vsts_password"></span>
     </td>
 </tr>
 
@@ -53,6 +56,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:textProperty name="tc_url" style="width:32em;"/>
+        <span class="error" id="error_tc_url"></span>
     </td>
 </tr>
 
@@ -62,6 +66,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:textProperty name="tc_user_name" style="width:32em;"/>
+        <span class="error" id="error_tc_user_name"></span>
     </td>
 </tr>
 
@@ -71,6 +76,7 @@ ARN Runner Parameters **********************************
     </th>
     <td>
         <props:passwordProperty name="tc_password" style="width:32em;"/>
+        <span class="error" id="error_tc_password"></span>
     </td>
 </tr>
 
@@ -87,5 +93,6 @@ ARN Runner Parameters **********************************
                 Done by: \${WorkItemAssignedTo}<br />
                 Story Points: \${WorkItemStoryPoints} <br />
          </span>
+         <span class="error" id="error_format_string"></span>
     </td>
 </tr>
