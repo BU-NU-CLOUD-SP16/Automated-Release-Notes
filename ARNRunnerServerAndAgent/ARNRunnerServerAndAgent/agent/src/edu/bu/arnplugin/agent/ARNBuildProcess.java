@@ -298,45 +298,126 @@ public class ARNBuildProcess implements BuildProcess {
       String title = workItemResponse.getValues().get(i).getFields().getTitle();
       String assignedTo = workItemResponse.getValues().get(i).getFields().getAssignedTo();
       String storyPoints = workItemResponse.getValues().get(i).getFields().getStoryPoints();
+      String teamProject = workItemResponse.getValues().get(i).getFields().getTeamProject();
+      String workItemType = workItemResponse.getValues().get(i).getFields().getType();
+      String state = workItemResponse.getValues().get(i).getFields().getState();
+      String priority = workItemResponse.getValues().get(i).getFields().getPriority();
+      String risk = workItemResponse.getValues().get(i).getFields().getRisk();
+      String area = workItemResponse.getValues().get(i).getFields().getArea();
+      String iteration = workItemResponse.getValues().get(i).getFields().getIteration();
+      String lastUpdatedBy = workItemResponse.getValues().get(i).getFields().getLastUpdatedBy();
+      String statusReason = workItemResponse.getValues().get(i).getFields().getStatusReason();
+      String workItemTag = workItemResponse.getValues().get(i).getFields().getWorkItemTags();
+      String acceptanceCriteria = workItemResponse.getValues().get(i).getFields().getAcceptanceCriteria();
+      String valueArea = workItemResponse.getValues().get(i).getFields().getWorkItemValueArea();
+
+
       String content;
       String eol = System.getProperty("line.separator");
       String tempFormatString = this.inputFormatString;
 
       //content = "Work Item Id: " +id + eol + "Title: " + title  + eol +"Description: " + description + eol + eol;
+
+
       if(id!=null) {
         tempFormatString = tempFormatString.replace("${WorkItemId}", id);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemId}", "");
       }
       if(title !=null) {
         tempFormatString = tempFormatString.replace("${WorkItemTitle}", title);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemTitle}", "");
       }
       if(description != null) {
         tempFormatString = tempFormatString.replace("${WorkItemDescription}", description);
+      } else{
+        tempFormatString = tempFormatString.replace("${WorkItemDescription}", "");
       }
       if(assignedTo != null) {
         tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", assignedTo);
+      }else {
+        tempFormatString = tempFormatString.replace("${WorkItemAssignedTo}", "");
       }
       if(storyPoints != null) {
         tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(teamProject != null) {
+        tempFormatString = tempFormatString.replace("${TeamProject}", teamProject);
+      } else {
+        tempFormatString = tempFormatString.replace("${TeamProject}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+      }
+      if(storyPoints != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      } else {
+        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
       }
 
-
       content = tempFormatString;
+      content = content.replaceAll("\\n",eol)+eol+eol;
+
       logger.message("content : "+content);
       try {
-
         byte[] b1 = content.getBytes();
-
         fos.write(b1);
-
-
         logger.message("done");
       }catch (IOException e){
         e.printStackTrace();
       }
-
     }
     fos.close();
-
   }
 
 
@@ -345,7 +426,6 @@ public class ARNBuildProcess implements BuildProcess {
   }
 
   public boolean isFinished() {
-
     return false;
   }
 
