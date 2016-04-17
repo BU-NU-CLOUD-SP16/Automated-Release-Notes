@@ -47,6 +47,8 @@ public class ARNBuildProcess implements BuildProcess {
     logger.message("***************************************ARN Build Started************************************************");
     String buildNo = this.runningBuild.getBuildNumber();
 
+
+
     logger.message("Build No. :"+ buildNo);
     ArrayList<String> workItems = new ArrayList<String>();
     final Map<String, String> runnerParameters = context.getRunnerParameters();
@@ -263,7 +265,7 @@ public class ARNBuildProcess implements BuildProcess {
       logger.message("sb.toString : "+sb.toString());
       byte[] b2 = sb.toString().getBytes();*/
 
-      FileOutputStream fos = new FileOutputStream(filePath+"\\changes.txt");
+      FileOutputStream fos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt");
 
     for(int i=0;i<workItemResponse.getValues().size();i++){
 
