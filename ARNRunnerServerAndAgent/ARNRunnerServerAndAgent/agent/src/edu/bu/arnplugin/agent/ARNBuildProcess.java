@@ -349,60 +349,60 @@ public class ARNBuildProcess implements BuildProcess {
       } else {
         tempFormatString = tempFormatString.replace("${TeamProject}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(workItemType != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemType}", workItemType);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemType}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(state != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemState}", state);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemState}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(priority != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemPriority}", priority);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemPriority}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(risk != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemRisk}", risk);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemRisk}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(area != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemArea}", area);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemArea}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(iteration != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemIteration}", iteration);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemIteration}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(lastUpdatedBy != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", lastUpdatedBy);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemLastUpdateBy}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(statusReason != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", statusReason);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemStatusReason}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(workItemTag != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemTags}", workItemTag);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemTags}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(acceptanceCriteria != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", acceptanceCriteria);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemAcceptanceCriteria}", "");
       }
-      if(storyPoints != null) {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", storyPoints);
+      if(valueArea != null) {
+        tempFormatString = tempFormatString.replace("${WorkItemValueArea}", valueArea);
       } else {
-        tempFormatString = tempFormatString.replace("${WorkItemStoryPoints}", "");
+        tempFormatString = tempFormatString.replace("${WorkItemValueArea}", "");
       }
 
       content = tempFormatString;
