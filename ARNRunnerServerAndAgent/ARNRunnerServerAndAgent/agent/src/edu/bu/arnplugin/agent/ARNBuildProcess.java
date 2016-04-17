@@ -70,6 +70,7 @@ public class ARNBuildProcess implements BuildProcess {
     vstsURL = runnerParameters.get("vsts_url");
     vstsUserName = runnerParameters.get("vsts_user_name");
     vstsPassword = runnerParameters.get("vsts_password");
+    tcURL = runnerParameters.get("tc_url");
     tcUserName = runnerParameters.get("tc_user_name");
     tcPassword = runnerParameters.get("tc_password");
     inputFormatString = runnerParameters.get("format_string");
