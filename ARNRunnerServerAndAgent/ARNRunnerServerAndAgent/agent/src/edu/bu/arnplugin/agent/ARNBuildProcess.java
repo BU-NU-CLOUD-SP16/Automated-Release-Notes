@@ -78,7 +78,8 @@ public class ARNBuildProcess implements BuildProcess {
     for(String s : parameters.keySet()){
       logger.message("Key Build : "+ s + "value : "+ parameters.get(s));
     }
-    this.filePath = parameters.get("system.agent.work.dir");
+    //this.filePath = parameters.get("system.agent.work.dir");
+    this.filePath = runnerParameters.get("file_path");
     logger.message("filePath :"+this.filePath);
     logger.message("getting work items");
 
