@@ -2,7 +2,7 @@
 <teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
   <info>
-    <name>PLUGIN_NAME</name>
+    <name>ARNServerPlugin</name>
     <display-name>ARNServerPlugin</display-name>
     <version>1.0</version> <!-- will be replaced from script -->
     <vendor>
