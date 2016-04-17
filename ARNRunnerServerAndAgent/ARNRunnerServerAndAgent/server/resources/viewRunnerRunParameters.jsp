@@ -14,6 +14,12 @@
 </div>
 
 <div class="parameter">
+    Teamcity URL:
+    <strong><props:display name="tc_url" emptyValue="not specified"/></strong>
+</div>
+
+<div class="parameter">
     Format String:
     <strong><props:display name="format_string" emptyValue="not specified"/></strong>
 </div>
+
