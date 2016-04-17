@@ -28,16 +28,16 @@ import java.util.regex.Pattern;
 public class GetBuildDetails {
 	
 	private static ArrayList<String> workItems =new ArrayList<String>();
-	public static ArrayList<String> getWorkItems(String buildNo, BuildProgressLogger logger) throws ClientProtocolException, IOException, ParserConfigurationException, SAXException {
+	public static ArrayList<String> getWorkItems(String buildNo, BuildProgressLogger logger,String tcURL, String tcUsername, String tcPassword) throws ClientProtocolException, IOException, ParserConfigurationException, SAXException {
 		
 
 		
 		//buildNum = getLatestBuild();
 		
 		HttpClient httpClient = HttpClientBuilder.create().build();
-		String url = "http://localhost/httpAuth/app/rest/changes?locator=build:(number:" +buildNo  + ",running:true)&fields=count,change:(comment)";
-	    String userName = "karunesh";
-	    String password = "teamcity";
+		String url = tcURL+"/httpAuth/app/rest/changes?locator=build:(number:" +buildNo  + ",running:true)&fields=count,change:(comment)";
+	    String userName = tcUsername;
+	    String password = tcPassword;
 	    String authString = userName + ":" + password;
 	    byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
 	    String authStringEnc = new String(authEncBytes);
@@ -48,6 +48,11 @@ public class GetBuildDetails {
 	    
 	    HttpResponse response = httpClient.execute(httpGet);
 			logger.message("Status code :"+response.getStatusLine().getStatusCode());
+
+			if(response.getStatusLine().getStatusCode()!=200){
+				logger.error("Incorrect Teamcity URL/Credentials");
+			}
+
 	    InputStream responseStream = response.getEntity().getContent();
 
 	    /*DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -79,7 +84,7 @@ public class GetBuildDetails {
 	    return workItems;
 	}
 	
-	public static String getLatestBuild() throws ClientProtocolException, IOException, ParserConfigurationException, SAXException{
+	/*public static String getLatestBuild() throws ClientProtocolException, IOException, ParserConfigurationException, SAXException{
 		String bNumber;
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String url = "http://localhost/httpAuth/api/buildTypes/id:CloudcomputingARN_BuildF/builds?count=1";
@@ -105,6 +110,6 @@ public class GetBuildDetails {
 	    
 	    return bNumber;
 		
-	}
+	}*/
 
 }
