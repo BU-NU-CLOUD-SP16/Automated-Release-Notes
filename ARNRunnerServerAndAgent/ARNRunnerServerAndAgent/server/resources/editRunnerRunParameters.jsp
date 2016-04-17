@@ -5,7 +5,11 @@
 <%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms" %>
 
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
-
+<tr>
+<th>
+ARN Runner Parameters **********************************
+</th>
+</tr>
 <tr>
     <th>
         <label for="file_path">File Path: </label>
@@ -45,6 +49,15 @@
 
 <tr>
     <th>
+        <label for="vsts_url">Teamcity URL: </label>
+    </th>
+    <td>
+        <props:textProperty name="tc_url" style="width:32em;"/>
+    </td>
+</tr>
+
+<tr>
+    <th>
         <label for="tc_user_name">Teamcity User Name: </label>
     </th>
     <td>
@@ -63,9 +76,16 @@
 
 <tr>
     <th>
-        <label for="format_string">Format String: </label>
+        Format String:
     </th>
     <td>
-        <props:passwordProperty name="format_string" style="width:32em;"/>
+        <props:multilineProperty name="format_string" rows="5" cols="50" linkTitle="Format String Template" expanded="true"  />
+        <span class="smallNote">
+               Enter a format string similar to the one below : <br />
+               Work Item: \${WorkItemId} - \${WorkItemTitle} <br />
+                \${WorkItemDescription}<br />
+                Done by: \${WorkItemAssignedTo}<br />
+                Story Points: \${WorkItemStoryPoints} <br />
+         </span>
     </td>
 </tr>
