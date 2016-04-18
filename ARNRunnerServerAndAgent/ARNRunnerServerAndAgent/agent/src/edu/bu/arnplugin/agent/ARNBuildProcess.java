@@ -235,7 +235,9 @@ public class ARNBuildProcess implements BuildProcess {
     httpGet.setHeader("Authorization", "Basic " + authStringEnc);
     HttpResponse response = httpClient.execute(httpGet);
     if(response !=null) {
-      logger.message("vsts response : " + response.getStatusLine().getStatusCode());
+      if(response.getStatusLine() !=null) {
+        logger.message("vsts response : " + response.getStatusLine().getStatusCode());
+      }
       if(response.getEntity() !=null) {
         InputStream responseStream = response.getEntity().getContent();
 
