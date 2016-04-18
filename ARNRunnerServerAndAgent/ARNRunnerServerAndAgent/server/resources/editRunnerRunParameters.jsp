@@ -4,10 +4,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="forms" tagdir="/WEB-INF/tags/forms" %>
 
+<script src="/plugins/ARNServerPlugin/js/script.js"></script>
+<style>
+.buttonStyle{
+  width : 32.5em;
+  background-color : #3B5998;
+  color : #ffffff;
+}
+
+.helpDiv{
+  display:none;
+  border:thin solid #000000;
+  width:32.5em;
+}
+
+</style>
 <jsp:useBean id="propertiesBean" scope="request" type="jetbrains.buildServer.controllers.BasePropertiesBean"/>
 <tr>
 <th>
-ARN Runner Parameters **********************************
+**** ARN Runner Parameters ****
 </th>
 </tr>
 <tr>
@@ -52,7 +67,7 @@ ARN Runner Parameters **********************************
 
 <tr>
     <th>
-        <label for="vsts_url">Teamcity URL: </label>
+        <label for="tc_url">Teamcity URL: </label>
     </th>
     <td>
         <props:textProperty name="tc_url" style="width:32em;"/>
@@ -82,17 +97,63 @@ ARN Runner Parameters **********************************
 
 <tr>
     <th>
+        Release Notes file formats: </label>
+    </th>
+    <td>
+        <props:checkboxProperty name="text_format" /> Text
+        <span class="error" id="error_text_format"></span>
+        <props:checkboxProperty name="pdf_format" /> PDF
+        <span class="error" id="error_pdf_format"></span>
+        <props:checkboxProperty name="doc_format" /> Doc
+        <span class="error" id="error_doc_format}"></span>
+    </td>
+</tr>
+
+<tr>
+    <th>
         Format String:
     </th>
     <td>
         <props:multilineProperty name="format_string" rows="5" cols="50" linkTitle="Format String Template" expanded="true"  />
         <span class="smallNote">
-               Enter a format string similar to the one below : <br />
-               Work Item: \${WorkItemId} - \${WorkItemTitle} <br />
-                \${WorkItemDescription}<br />
-                Done by: \${WorkItemAssignedTo}<br />
-                Story Points: \${WorkItemStoryPoints} <br />
+
          </span>
          <span class="error" id="error_format_string"></span>
+         <button type="button" class="buttonStyle" id="helpButton" onclick="showDiv()">Click for information about format strings</button>
+         <button type="button" class="buttonStyle" id="lessHelpButton" onclick="hideDiv()" style="display:none">Hide</button>
+
+         <div id="helpDiv" class="helpDiv">
+         <span> Enter a format string similar to the one below : <br /><br/>
+                           Work Item: \${WorkItemId} - \${WorkItemTitle} <br />
+                            \${WorkItemDescription}<br />
+                            Done by: \${WorkItemAssignedTo}<br />
+                            Story Points: \${WorkItemStoryPoints} <br /></span>
+
+          <p>
+          Following is the list of supported parameters that you can include in your Format String :
+
+          <ul>
+          <li>\${WorkItemId}</li>
+          <li>\${WorkItemTitle}</li>
+          <li>\${WorkItemDescription}</li>
+          <li>\${WorkItemAssignedTo}</li>
+          <li>\${WorkItemStoryPoints}</li>
+          <li>\${TeamProject}</li>
+          <li>\${WorkItemType}</li>
+          <li>\${WorkItemState}</li>
+          <li>\${WorkItemPriority}</li>
+          <li>\${WorkItemRisk}</li>
+          <li>\${WorkItemArea}</li>
+          <li>\${WorkItemIteration}</li>
+          <li>\${WorkItemLastUpdateBy}</li>
+          <li>\${WorkItemStatusReason}</li>
+          <li>\${WorkItemTags}</li>
+          <li>\${WorkItemAcceptanceCriteria}</li>
+          <li>\${WorkItemValueArea}</li>
+          </ul>
+
+          </p>
+         </div>
     </td>
+
 </tr>

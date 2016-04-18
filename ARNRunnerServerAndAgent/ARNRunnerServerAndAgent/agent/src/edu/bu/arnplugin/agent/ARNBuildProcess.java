@@ -30,6 +30,10 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.SAXException;
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/master
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
@@ -230,15 +234,12 @@ public class ARNBuildProcess implements BuildProcess {
     httpGet.setHeader("Accept", "application/json");
     httpGet.setHeader("Authorization", "Basic " + authStringEnc);
     HttpResponse response = httpClient.execute(httpGet);
-    logger.message("vsts response : "+ response.getStatusLine().getStatusCode());
-    InputStream responseStream = response.getEntity().getContent();
-
-/*ServletContext servletContext = getServletContext();*/
-
+    if(response !=null) {
+      logger.message("vsts response : " + response.getStatusLine().getStatusCode());
+      if(response.getEntity() !=null) {
+        InputStream responseStream = response.getEntity().getContent();
 
     ObjectMapper mapper = new ObjectMapper();
-
-
       WorkItemResponse workItemResponse = mapper.readValue(responseStream, WorkItemResponse.class);
 
       if(workItemResponse!=null) {
@@ -252,20 +253,12 @@ public class ARNBuildProcess implements BuildProcess {
 
 
       }
-    /*System.out.println("asd");
 
-    //String path = servletContext.getRealPath("/WEB-INF/");
-       FileOutputStream fos = new FileOutputStream("C:\\TeamCity\\WorkitemResponse.txt");
-
-       int read = 0;
-   	byte[] bytes = new byte[1024];
-
-   	while ((read = responseStream.read(bytes)) != -1) {
-   		fos.write(bytes, 0, read);
-   	}*/
     jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
 
     logger.message("getting work items");
+      }
+    }
   }
 
   private void createFormattedFile(WorkItemResponse workItemResponse) throws IOException, DocumentException {
