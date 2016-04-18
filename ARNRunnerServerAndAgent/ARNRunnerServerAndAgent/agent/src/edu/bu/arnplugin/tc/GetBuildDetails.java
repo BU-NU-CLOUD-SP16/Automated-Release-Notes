@@ -33,7 +33,7 @@ public class GetBuildDetails {
 
 		
 		//buildNum = getLatestBuild();
-		
+		workItems =new ArrayList<String>();
 		HttpClient httpClient = HttpClientBuilder.create().build();
 		String url = tcURL+"/httpAuth/app/rest/changes?locator=build:(number:" +buildNo  + ",running:true)&fields=count,change:(comment)";
 	    String userName = tcUsername;

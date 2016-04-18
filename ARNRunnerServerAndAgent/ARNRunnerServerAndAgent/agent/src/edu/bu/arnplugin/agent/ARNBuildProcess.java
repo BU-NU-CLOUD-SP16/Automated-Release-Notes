@@ -110,7 +110,7 @@ public class ARNBuildProcess implements BuildProcess {
 
     try {
       if(workItems.size()>0) {
-        getAllVstsWorkItems(workItems, vstsURL, vstsUserName, vstsPassword);
+        getAllVstsWorkItems(workItems, vstsURL, vstsUserName, vstsPassword, runnerParameters);
       }else{
         logger.message("No Changes in the current build");
       }
@@ -206,7 +206,7 @@ public class ARNBuildProcess implements BuildProcess {
     }
   }
 
-  public void getAllVstsWorkItems(ArrayList<String> workItems, String vstsURL, String vstsUserName, String vstsPassword) throws ClientProtocolException, IOException{
+  public void getAllVstsWorkItems(ArrayList<String> workItems, String vstsURL, String vstsUserName, String vstsPassword, Map<String, String> runnerParameters) throws ClientProtocolException, IOException{
     String commaSeperatedIds = "";
     for(String id : workItems){
       commaSeperatedIds = commaSeperatedIds+id+",";
@@ -214,10 +214,10 @@ public class ARNBuildProcess implements BuildProcess {
     jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
     logger.message("commaSeperatedIds :"+commaSeperatedIds);
     commaSeperatedIds = commaSeperatedIds.substring(0, commaSeperatedIds.length()-1);
-    getVstsWorkItems(commaSeperatedIds);
+    getVstsWorkItems(commaSeperatedIds, runnerParameters);
 
   }
-  public void getVstsWorkItems(String ids) throws ClientProtocolException, IOException, JsonMappingException {
+  public void getVstsWorkItems(String ids, Map<String, String> runnerParameters) throws ClientProtocolException, IOException, JsonMappingException {
     HttpClient httpClient = HttpClientBuilder.create().build();
 
     String url = vstsURL+"/DefaultCollection/_apis/wit/workitems?ids="+ids+"&api-version=1.0";
@@ -245,7 +245,7 @@ public class ARNBuildProcess implements BuildProcess {
         logger.message("size : "+workItemResponse.getValues().size());
         logger.message(workItemResponse.getValues().get(0).getId());
         try {
-          createFormattedFile(workItemResponse);
+          createFormattedFile(workItemResponse, runnerParameters);
         } catch (DocumentException e) {
           e.printStackTrace();
         }
@@ -260,7 +260,7 @@ public class ARNBuildProcess implements BuildProcess {
     }
   }
 
-  private void createFormattedFile(WorkItemResponse workItemResponse) throws IOException, DocumentException {
+  private void createFormattedFile(WorkItemResponse workItemResponse, Map<String, String> runnerParameters) throws IOException, DocumentException {
 
 
 
@@ -294,23 +294,36 @@ public class ARNBuildProcess implements BuildProcess {
       logger.message("sb.toString : "+sb.toString());
       byte[] b2 = sb.toString().getBytes();*/
 
+    FileOutputStream fos=null;
+
+    File file;
+    FileOutputStream pdfFileout=null;
+    Document doc=null;
+
+    XWPFDocument document=null;
+    FileOutputStream wordFos=null;
+    String wordContent = "";
+
+
     //text file
-    FileOutputStream fos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt");
-
+    if(runnerParameters.get("text_format").equals("true")) {
+      fos = new FileOutputStream(filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
+    }
     //pdf file
-    File file = new File(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".pdf");
-    FileOutputStream pdfFileout = new FileOutputStream(file);
-    Document doc = new Document();
-    PdfWriter.getInstance(doc, pdfFileout);
-    doc.addAuthor("Karunesh Mahajan");
-    doc.addTitle("This is title");
-    doc.open();
-
+    if(runnerParameters.get("pdf_format").equals("true")) {
+      file = new File(filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
+      pdfFileout = new FileOutputStream(file);
+      doc = new Document();
+      PdfWriter.getInstance(doc, pdfFileout);
+      doc.addAuthor("Mingle Analytics");
+      doc.addTitle("Automated Release Notes");
+      doc.open();
+    }
     //word doc
-    String wordContent=null;
-    XWPFDocument document = new XWPFDocument();
-    FileOutputStream wordFos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".doc");
-    XWPFParagraph paragraph = document.createParagraph();
+    if(runnerParameters.get("doc_format").equals("true")) {
+      document = new XWPFDocument();
+      wordFos = new FileOutputStream(filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
+    }
 
 
 
@@ -430,42 +443,69 @@ public class ARNBuildProcess implements BuildProcess {
         }
 
         content = tempFormatString;
+        wordContent = content;
         content = content.replaceAll("\\n",eol)+eol+eol;
       }
 
       logger.message("content : "+content);
 
-
-      try {
-        byte[] b1 = content.getBytes();
-        fos.write(b1);
-        logger.message("done");
-      }catch (IOException e){
-        e.printStackTrace();
+      if(runnerParameters.get("text_format") != null && runnerParameters.get("text_format").equals("true")) {
+        try {
+          byte[] b1 = content.getBytes();
+          fos.write(b1);
+          logger.message("done");
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
       }
 
-      try {
-        Paragraph para = new Paragraph();
-        para.add(content+eol+eol);
-        doc.add(para);
-      } catch (Exception e) {
-        e.printStackTrace();
+      if(runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
+        try {
+          Paragraph para = new Paragraph();
+          para.add(content + eol + eol);
+          doc.add(para);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
 
-      wordContent = wordContent+eol+content;
+      if(runnerParameters.get("doc_format")!= null && runnerParameters.get("doc_format").equals("true")) {
+        XWPFParagraph paragraph = document.createParagraph();
+        XWPFRun run = paragraph.createRun();
+        //run.setFontSize(18);
 
+        if (wordContent.contains("\n")) {
+          logger.message("in the if");
+          String[] lines = wordContent.split("\n");
+          run.setText(lines[0], 0); // set first line into XWPFRun
+          for (int j = 1; j < lines.length; j++) {
+            // add break and insert new text
+            run.addBreak();
+            run.setText(lines[j]);
+          }
+        } else {
+          logger.message("in the else");
+          run.setText(wordContent, 0);
+        }
+      }
 
     }
 
-    XWPFRun run = paragraph.createRun();
-    //run.setFontSize(18);
-    run.setText(wordContent);
-    document.write(wordFos);
-
-    fos.close();
-    doc.close();
-    pdfFileout.close();
-    wordFos.close();
+    if(wordFos!=null) {
+      document.write(wordFos);
+    }
+    if(fos!=null) {
+      fos.close();
+    }
+    if(doc!=null) {
+      doc.close();
+    }
+    if(pdfFileout!=null) {
+      pdfFileout.close();
+    }
+    if(wordFos!=null) {
+      wordFos.close();
+    }
   }
 
 
