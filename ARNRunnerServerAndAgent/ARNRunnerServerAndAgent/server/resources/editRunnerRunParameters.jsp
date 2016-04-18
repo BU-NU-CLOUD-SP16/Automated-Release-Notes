@@ -67,7 +67,7 @@
 
 <tr>
     <th>
-        <label for="vsts_url">Teamcity URL: </label>
+        <label for="tc_url">Teamcity URL: </label>
     </th>
     <td>
         <props:textProperty name="tc_url" style="width:32em;"/>
@@ -92,6 +92,20 @@
     <td>
         <props:passwordProperty name="tc_password" style="width:32em;"/>
         <span class="error" id="error_tc_password"></span>
+    </td>
+</tr>
+
+<tr>
+    <th>
+        Release Notes file formats: </label>
+    </th>
+    <td>
+        <props:checkboxProperty name="text_format" /> Text
+        <span class="error" id="error_text_format"></span>
+        <props:checkboxProperty name="pdf_format" /> PDF
+        <span class="error" id="error_pdf_format"></span>
+        <props:checkboxProperty name="doc_format" /> Doc
+        <span class="error" id="error_doc_format}"></span>
     </td>
 </tr>
 

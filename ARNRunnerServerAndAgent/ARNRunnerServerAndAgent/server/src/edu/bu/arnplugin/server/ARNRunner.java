@@ -21,9 +21,16 @@ import jetbrains.buildServer.serverSide.PropertiesProcessor;
 import jetbrains.buildServer.serverSide.RunType;
 import jetbrains.buildServer.serverSide.RunTypeRegistry;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.apache.http.client.HttpClient;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -60,11 +67,90 @@ public class ARNRunner extends RunType{
     return new PropertiesProcessor() {
       private void checkNotEmpty(@NotNull final Map<String, String> properties,
                                  @NotNull final String key,
-                                 @NotNull final String message,
+                                 @NotNull  final String message,
                                  @NotNull final Collection<InvalidProperty> res) {
         if (jetbrains.buildServer.util.StringUtil.isEmptyOrSpaces(properties.get(key))) {
           res.add(new InvalidProperty(key, message));
+        }else{
+            if(key.equals("tc_url")){
+                boolean isValidURL = validateTcURL(properties,key);
+              if(!isValidURL){
+                final String newMessage = "Invalid Teamcity URL or wrong credentials";
+                res.add(new InvalidProperty(key, newMessage));
+              }
+            }else if(key.equals("vsts_url")){
+              boolean isValidURL = validateVstsURL(properties,key);
+              if(!isValidURL) {
+                final String newMessage = "Invalid VSTS URL or wrong credentials";
+                res.add(new InvalidProperty(key, newMessage));
+              }
+            }
         }
+      }
+
+      private boolean validateVstsURL(Map<String, String> properties, String key) {
+        HttpClient httpClient = HttpClientBuilder.create().build();
+
+        String url = properties.get(key);
+        String userName = properties.get("vsts_user_name");
+        String password = properties.get("vsts_password");
+        String authString = userName + ":" + password;
+        byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+        String authStringEnc = new String(authEncBytes);
+
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Authorization", "Basic " + authStringEnc);
+        HttpResponse response = null;
+        try {
+          response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        if(response==null){
+          return false;
+        }else if(response.getStatusLine() ==null){
+          return false;
+        }else if(response.getStatusLine().getStatusCode() != 200){
+            return false;
+        }else{
+          return true;
+        }
+      }
+
+      private boolean validateTcURL(Map<String, String> properties, String key) {
+
+        String url = properties.get(key);
+        String user = properties.get("tc_user_name");
+        String password = properties.get("tc_password");
+
+        HttpClient httpClient = HttpClientBuilder.create().build();
+
+
+        String authString = user + ":" + password;
+        byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
+        String authStringEnc = new String(authEncBytes);
+
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Authorization", "Basic " + authStringEnc);
+
+        HttpResponse response = null;
+        try {
+          response = httpClient.execute(httpGet);
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        if(response==null){
+          return false;
+        }else if(response.getStatusLine() ==null){
+          return false;
+        }else if(response.getStatusLine().getStatusCode() != 200){
+          return false;
+        }else{
+          return true;
+        }
+
       }
 
       public Collection<InvalidProperty> process(Map<String, String> properties) {
