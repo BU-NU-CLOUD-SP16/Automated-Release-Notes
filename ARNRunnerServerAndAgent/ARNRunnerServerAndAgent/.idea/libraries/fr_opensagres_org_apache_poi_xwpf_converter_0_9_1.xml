@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="fr.opensagres:org.apache.poi.xwpf.converter:0.9.1" type="repository">
+    <properties maven-id="fr.opensagres:org.apache.poi.xwpf.converter:0.9.1" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/org.apache.poi.xwpf.converter-0.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-ooxml-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/poi-ooxml-schemas-3.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xmlbeans-2.3.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/stax-api-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/geronimo-stax-api_1.0_spec-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/dom4j-1.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xml-apis-1.0.b2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/ooxml-schemas-1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fr.opensagres.xdocreport.itext.extension-0.9.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/itext-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bcmail-jdk14-138.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/bcprov-jdk14-138.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/org.osgi.core-4.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

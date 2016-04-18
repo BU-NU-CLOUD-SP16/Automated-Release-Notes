@@ -20,6 +20,16 @@
             <element id="extracted-dir" path="$TeamCityDistribution$/commons-codec-1.9.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$TeamCityDistribution$/commons-logging-1.2.jar" path-in-jar="/" />
             <element id="extracted-dir" path="$TeamCityDistribution$/junit-4.11.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/itextdoc-2.0.0.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/itextpdf-5.1.2.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/org.apache.poi.xwpf.converter-0.9.1.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/poi-3.7.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/poi-ooxml-3.7.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/xmlbeans-2.3.0.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/dom4j-1.6.1.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/poi-ooxml-schemas-3.7.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/xml-apis-1.0.b2.jar" path-in-jar="/" />
+            <element id="extracted-dir" path="$PROJECT_DIR$/lib/xmlworker-1.1.0.jar" path-in-jar="/" />
           </element>
           <element id="file-copy" path="$PROJECT_DIR$/agent/teamcity-agent-plugin.xml" output-file-name="teamcity-plugin.xml" />
           <element id="artifact" artifact-name="common-jar" />

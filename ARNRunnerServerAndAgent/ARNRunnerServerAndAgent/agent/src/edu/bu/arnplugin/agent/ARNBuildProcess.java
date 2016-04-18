@@ -1,5 +1,9 @@
 package edu.bu.arnplugin.agent;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import edu.bu.arnplugin.bean.Authorization;
 import edu.bu.arnplugin.bean.WorkItemResponse;
 import edu.bu.arnplugin.tc.GetBuildDetails;
@@ -16,10 +20,15 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
+
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
+import org.apache.poi.xwpf.usermodel.XWPFRun;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.jetbrains.annotations.NotNull;
 import org.xml.sax.SAXException;
+
 
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
@@ -235,7 +244,11 @@ public class ARNBuildProcess implements BuildProcess {
       if(workItemResponse!=null) {
         logger.message("size : "+workItemResponse.getValues().size());
         logger.message(workItemResponse.getValues().get(0).getId());
-        createFormattedFile(workItemResponse);
+        try {
+          createFormattedFile(workItemResponse);
+        } catch (DocumentException e) {
+          e.printStackTrace();
+        }
 
 
       }
@@ -255,7 +268,7 @@ public class ARNBuildProcess implements BuildProcess {
     logger.message("getting work items");
   }
 
-  private void createFormattedFile(WorkItemResponse workItemResponse) throws IOException {
+  private void createFormattedFile(WorkItemResponse workItemResponse) throws IOException, DocumentException {
 
 
 
@@ -289,7 +302,24 @@ public class ARNBuildProcess implements BuildProcess {
       logger.message("sb.toString : "+sb.toString());
       byte[] b2 = sb.toString().getBytes();*/
 
-      FileOutputStream fos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt");
+    //text file
+    FileOutputStream fos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt");
+
+    //pdf file
+    File file = new File(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".pdf");
+    FileOutputStream pdfFileout = new FileOutputStream(file);
+    Document doc = new Document();
+    PdfWriter.getInstance(doc, pdfFileout);
+    doc.addAuthor("Karunesh Mahajan");
+    doc.addTitle("This is title");
+    doc.open();
+
+    //word doc
+    String wordContent=null;
+    XWPFDocument document = new XWPFDocument();
+    FileOutputStream wordFos = new FileOutputStream(filePath+"\\Release_Notes_Build"+runningBuild.getBuildNumber()+".doc");
+    XWPFParagraph paragraph = document.createParagraph();
+
 
 
     for(int i=0;i<workItemResponse.getValues().size();i++){
@@ -413,6 +443,7 @@ public class ARNBuildProcess implements BuildProcess {
 
       logger.message("content : "+content);
 
+
       try {
         byte[] b1 = content.getBytes();
         fos.write(b1);
@@ -420,9 +451,32 @@ public class ARNBuildProcess implements BuildProcess {
       }catch (IOException e){
         e.printStackTrace();
       }
+
+      try {
+        Paragraph para = new Paragraph();
+        para.add(content+eol+eol);
+        doc.add(para);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+
+      wordContent = wordContent+eol+content;
+
+
     }
+
+    XWPFRun run = paragraph.createRun();
+    //run.setFontSize(18);
+    run.setText(wordContent);
+    document.write(wordFos);
+
     fos.close();
+    doc.close();
+    pdfFileout.close();
+    wordFos.close();
   }
+
+
 
 
   public boolean isInterrupted() {
