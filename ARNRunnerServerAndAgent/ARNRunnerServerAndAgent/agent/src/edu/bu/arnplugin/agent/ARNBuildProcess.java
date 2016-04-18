@@ -233,8 +233,10 @@ public class ARNBuildProcess implements BuildProcess {
       WorkItemResponse workItemResponse = mapper.readValue(responseStream, WorkItemResponse.class);
 
       if(workItemResponse!=null) {
-        logger.message("size : "+workItemResponse.getValues().size());
-        logger.message(workItemResponse.getValues().get(0).getId());
+        if(workItemResponse.getValues() != null) {
+          logger.message("size : " + workItemResponse.getValues().size());
+          //logger.message(workItemResponse.getValues().get(0).getId());
+        }
         createFormattedFile(workItemResponse);
 
 
