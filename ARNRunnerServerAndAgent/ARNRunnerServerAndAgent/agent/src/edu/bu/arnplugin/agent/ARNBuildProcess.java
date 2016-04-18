@@ -30,10 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import org.xml.sax.SAXException;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
