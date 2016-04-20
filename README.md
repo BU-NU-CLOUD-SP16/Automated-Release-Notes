@@ -5,6 +5,7 @@ This is an Open Source Project done by the students of Boston University in the 
 Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). 
 
 # Downloading Build 
+Download the latest version of ARN plugin zip file. ()
 Download the latest version of Teamcity. (https://www.jetbrains.com/teamcity/download/)
 
 # Installation
