@@ -8,7 +8,6 @@ import org.testng.annotations.Test;
 public class SimpleTest extends BaseTestCase {
   @Test
   public void Test() {
-    System.out.println("Automated Release Note!");
 
   }
 }
