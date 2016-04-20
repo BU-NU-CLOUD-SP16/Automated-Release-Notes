@@ -53,7 +53,7 @@ public class GetBuildDetailsTest {
 
     @Test
     public void testGetLatestBuild(){
-        /*try {
+        try {
             String builNo = GetBuildDetails.getLatestBuild();
             System.out.println(builNo);
 
@@ -63,6 +63,6 @@ public class GetBuildDetailsTest {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
-        }*/
+        }
     }
 }
