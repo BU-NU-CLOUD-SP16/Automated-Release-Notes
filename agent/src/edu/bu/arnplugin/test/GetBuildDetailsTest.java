@@ -53,16 +53,16 @@ public class GetBuildDetailsTest {
 
     @Test
     public void testGetLatestBuild(){
-        try {
-            String builNo = GetBuildDetails.getLatestBuild();
-            System.out.println(builNo);
+        // try {
+        //     String builNo = GetBuildDetails.getLatestBuild();
+        //     System.out.println(builNo);
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // } catch (ParserConfigurationException e) {
+        //     e.printStackTrace();
+        // } catch (SAXException e) {
+        //     e.printStackTrace();
+        // }
     }
 }
