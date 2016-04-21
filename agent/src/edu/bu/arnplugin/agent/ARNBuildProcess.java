@@ -138,7 +138,6 @@ public class ARNBuildProcess implements BuildProcess {
     }
     FileWriter fw = new FileWriter(file.getAbsoluteFile());
     BufferedWriter bw = new BufferedWriter(fw);
-
     bw.write(auth.getAccessToken());
     bw.newLine();
     bw.write(auth.getRefreshtoken());
@@ -268,38 +267,6 @@ public class ARNBuildProcess implements BuildProcess {
   }
 
   private void createFormattedFile(WorkItemResponse workItemResponse, Map<String, String> runnerParameters) throws IOException, DocumentException {
-
-
-
-      /*logger.message("i ="+i +" :"+ filePath) ;
-      File file = new File(filePath+"\\changes.txt");
-      try {
-       boolean isCreated = file.createNewFile();
-        logger.message("File created :"+isCreated);
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      BufferedReader bf = null;
-      try {
-        bf = new BufferedReader(new FileReader(file));
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      }
-      String preContent = "";
-      StringBuilder sb = new StringBuilder("");
-
-      try {
-        while (preContent != null) {
-          preContent = bf.readLine();
-          sb.append(preContent);
-          sb.append("\n");
-        }
-        bf.close();
-      }catch (IOException e){
-        e.printStackTrace();
-      }
-      logger.message("sb.toString : "+sb.toString());
-      byte[] b2 = sb.toString().getBytes();*/
 
     FileOutputStream fos=null;
 
