@@ -5,7 +5,7 @@ This is an Open Source Project done by the students of Boston University in the 
 Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). 
 
 # Installation
-* Download the plugin build (binaries) from https://drive.google.com/drive/u/0/folders/0By9rvt12gKqOUThhZHB5a0hpbG8
+* Download the plugin build (binaries) from https://drive.google.com/a/bu.edu/file/d/0B2FiyfgYqIm8Yk5rNUNzMkpkY3c/view?usp=sharing
 * Make sure downloaded .zip file is not corrupted
 * Put the downloaded plugin .zip file into <TeamCity Data Directory>/plugins folder
 * Restart the TeamCity Server
