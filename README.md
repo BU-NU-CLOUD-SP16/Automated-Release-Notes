@@ -4,15 +4,12 @@ This is an Open Source Project done by the students of Boston University in the 
 # Features 
 Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). 
 
-# Downloading Build 
-Download the latest version of Automated Release Note plugin zip file
-(https://drive.google.com/drive/u/0/folders/0By9rvt12gKqOUThhZHB5a0hpbG8)
-
-Download the latest version of Teamcity.
-(https://www.jetbrains.com/teamcity/download/)
-
 # Installation
-You will need Teamcity Server and compatible Teamcity Build agents that can run under JRE 1.7+ . To install plugin, start Teamcity Server and open the Administration menu. Go to plugin list in bottom left of page and upload the plugin by choosing the upload plugin .zip option.
+* Download the plugin build (binaries) from https://drive.google.com/drive/u/0/folders/0By9rvt12gKqOUThhZHB5a0hpbG8
+* Make sure downloaded .zip file is not corrupted
+* Put the downloaded plugin .zip file into <TeamCity Data Directory>/plugins folder
+* Restart the TeamCity Server
+* Open Administration | Plugins and check you see the plugin listed
 
 # Building
  Open the project in IntelliJ IDEA.
