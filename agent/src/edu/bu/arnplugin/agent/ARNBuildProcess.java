@@ -55,6 +55,8 @@ public class ARNBuildProcess implements BuildProcess {
   private String inputFormatString;
   private String buildCheckoutDir;
 
+
+
   ARNBuildProcess(@NotNull AgentRunningBuild runningBuild, @NotNull BuildRunnerContext context){
 
     this.runningBuild = runningBuild;
@@ -78,6 +80,8 @@ public class ARNBuildProcess implements BuildProcess {
         logger.message("Key : "+ s + "value : "+ runnerParameters.get(s));
     }
 
+
+
     final Map<String, String> parameters = context.getBuildParameters().getAllParameters();
 
 
@@ -98,6 +102,7 @@ public class ARNBuildProcess implements BuildProcess {
     //this.filePath = parameters.get("system.agent.work.dir");
     this.filePath = runnerParameters.get("file_path");
     logger.message("filePath :"+this.filePath);
+
     logger.message("getting work items");
 
     try {
@@ -279,12 +284,21 @@ public class ARNBuildProcess implements BuildProcess {
     String wordContent = "";
 
 
+    File fileDir = new File(buildCheckoutDir+"\\" + filePath);
+    logger.message("fileDir"+fileDir.toString());
+    if(!fileDir.exists()){
+      fileDir.mkdir();
+      logger.message("inside make dir");
+    }
+
     //text file
-    if(runnerParameters.get("text_format").equals("true")) {
+    if(runnerParameters.get("text_format")!=null && runnerParameters.get("text_format").equals("true")) {
       fos = new FileOutputStream(buildCheckoutDir+"\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
     }
+
+
     //pdf file
-    if(runnerParameters.get("pdf_format").equals("true")) {
+    if(runnerParameters.get("pdf_format")!=null && runnerParameters.get("pdf_format").equals("true")) {
       file = new File(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
       pdfFileout = new FileOutputStream(file);
       doc = new Document();
@@ -294,7 +308,7 @@ public class ARNBuildProcess implements BuildProcess {
       doc.open();
     }
     //word doc
-    if(runnerParameters.get("doc_format").equals("true")) {
+    if(runnerParameters.get("doc_format")!=null && runnerParameters.get("doc_format").equals("true")) {
       document = new XWPFDocument();
       wordFos = new FileOutputStream(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
     }
