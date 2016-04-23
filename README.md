@@ -11,6 +11,8 @@ Plugin is an efficient tool to eliminate the manual step of entering release not
 * Restart the TeamCity Server
 * Open Administration | Plugins and check you see the plugin listed
 
+For more details, there is [documentation](http://confluence.jetbrains.net/display/TCD7/Installing+Additional+Plugins)
+
 # Building
  Open the project in IntelliJ IDEA.
  Build all artifacts. 
