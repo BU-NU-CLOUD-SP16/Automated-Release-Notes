@@ -1,8 +1,12 @@
 package edu.bu.arnplugin.agent;
 
+import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfImportedPage;
+import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfWriter;
 import edu.bu.arnplugin.bean.Authorization;
 import edu.bu.arnplugin.bean.WorkItemResponse;
@@ -212,18 +216,97 @@ public class ARNBuildProcess implements BuildProcess {
     }
   }
 
-  public void getAllVstsWorkItems(ArrayList<String> workItems, String vstsURL, String vstsUserName, String vstsPassword, Map<String, String> runnerParameters) throws ClientProtocolException, IOException{
+  public void getAllVstsWorkItems(ArrayList<String> workItems, String vstsURL, String vstsUserName, String vstsPassword, Map<String, String> runnerParameters) throws ClientProtocolException{
     String commaSeperatedIds = "";
-    for(String id : workItems){
-      commaSeperatedIds = commaSeperatedIds+id+",";
+    Document doc=null;
+    PdfWriter writer = null;
+    FileOutputStream pdfFileout=null;
+    XWPFDocument document=null;
+    FileOutputStream wordFos=null;
+    FileOutputStream fos=null;
+    File file = null;
+    PrintWriter out =null;
+  try {
+    if(runnerParameters.get("text_format") !=null && runnerParameters.get("text_format").equals("true")) {
+      //fos = new FileOutputStream(buildCheckoutDir+"\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
+      FileWriter fw = new FileWriter(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt",true);
+      BufferedWriter bw = new BufferedWriter(fw);
+      out = new PrintWriter(bw);
     }
-    jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
-    logger.message("commaSeperatedIds :"+commaSeperatedIds);
-    commaSeperatedIds = commaSeperatedIds.substring(0, commaSeperatedIds.length()-1);
-    getVstsWorkItems(commaSeperatedIds, runnerParameters);
+    if (runnerParameters.get("doc_format") != null && runnerParameters.get("doc_format").equals("true")) {
+      document = new XWPFDocument();
+      wordFos = new FileOutputStream(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
+    }
+
+    File fileDir = new File(buildCheckoutDir + "\\" + filePath);
+    logger.message("fileDir" + fileDir.toString());
+    if (!fileDir.exists()) {
+      fileDir.mkdir();
+      logger.message("inside make dir");
+    }
+    if (runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
+      file = new File(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
+      pdfFileout = new FileOutputStream(file);
+      doc = new Document();
+
+      try {
+        writer = PdfWriter.getInstance(doc, pdfFileout);
+      } catch (DocumentException e) {
+        e.printStackTrace();
+      }
+      doc.addAuthor("Mingle Analytics");
+      doc.addTitle("Automated Release Notes");
+      doc.open();
+    }
+    for (String id : workItems) {
+      //commaSeperatedIds = commaSeperatedIds+id+",";
+      getVstsWorkItems(id, runnerParameters, doc, document,out);
+    }
+    if (doc != null) {
+      try {
+        doc.add(new Chunk(""));
+      } catch (DocumentException e) {
+        e.printStackTrace();
+      }
+      doc.close();
+    }
+    if (wordFos != null) {
+      document.write(wordFos);
+    }
+    if (wordFos != null) {
+      wordFos.close();
+    }
+    if(out!=null) {
+      out.close();
+    }
+    //jetbrains.buildServer.agent.BuildProgressLogger logger = runningBuild.getBuildLogger();
+    //logger.message("commaSeperatedIds :"+commaSeperatedIds);
+    //commaSeperatedIds = commaSeperatedIds.substring(0, commaSeperatedIds.length()-1);
+  }catch (IOException e){
+    logger.message("File exception");
+  }finally {
+    if (doc != null) {
+      try {
+        doc.add(new Chunk(""));
+      } catch (DocumentException e) {
+        e.printStackTrace();
+      }
+      doc.close();
+    }
+    if (wordFos != null) {
+      try {
+        wordFos.close();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+    }
+    if(out!=null) {
+      out.close();
+    }
+  }
 
   }
-  public void getVstsWorkItems(String ids, Map<String, String> runnerParameters) throws ClientProtocolException, IOException, JsonMappingException {
+  public void getVstsWorkItems(String ids, Map<String, String> runnerParameters, Document doc, XWPFDocument document, PrintWriter out) throws ClientProtocolException, IOException, JsonMappingException {
     HttpClient httpClient = HttpClientBuilder.create().build();
 
     String url = vstsURL+"/DefaultCollection/_apis/wit/workitems?ids="+ids+"&api-version=1.0";
@@ -248,14 +331,15 @@ public class ARNBuildProcess implements BuildProcess {
       WorkItemResponse workItemResponse = mapper.readValue(responseStream, WorkItemResponse.class);
 
       if(workItemResponse!=null) {
-        logger.message("size : "+workItemResponse.getValues().size());
-        logger.message(workItemResponse.getValues().get(0).getId());
-        try {
-          createFormattedFile(workItemResponse, runnerParameters);
-        } catch (DocumentException e) {
-          e.printStackTrace();
+        if(workItemResponse.getValues() !=null && workItemResponse.getValues().size() >0 ) {
+          logger.message("size : " + workItemResponse.getValues().size());
+          logger.message(workItemResponse.getValues().get(0).getId());
+          try {
+            createFormattedFile(workItemResponse, runnerParameters, doc,document,out);
+          } catch (DocumentException e) {
+            e.printStackTrace();
+          }
         }
-
 
       }
 
@@ -266,39 +350,12 @@ public class ARNBuildProcess implements BuildProcess {
     }
   }
 
-  private void createFormattedFile(WorkItemResponse workItemResponse, Map<String, String> runnerParameters) throws IOException, DocumentException {
+  private void createFormattedFile(WorkItemResponse workItemResponse, Map<String, String> runnerParameters, Document doc, XWPFDocument document, PrintWriter out) throws IOException, DocumentException {
 
-    FileOutputStream fos=null;
 
-    File file;
-    FileOutputStream pdfFileout=null;
-    Document doc=null;
-
-    XWPFDocument document=null;
-    FileOutputStream wordFos=null;
     String wordContent = "";
 
-
     //text file
-    if(runnerParameters.get("text_format").equals("true")) {
-      fos = new FileOutputStream(buildCheckoutDir+"\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
-    }
-    //pdf file
-    if(runnerParameters.get("pdf_format").equals("true")) {
-      file = new File(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
-      pdfFileout = new FileOutputStream(file);
-      doc = new Document();
-      PdfWriter.getInstance(doc, pdfFileout);
-      doc.addAuthor("Mingle Analytics");
-      doc.addTitle("Automated Release Notes");
-      doc.open();
-    }
-    //word doc
-    if(runnerParameters.get("doc_format").equals("true")) {
-      document = new XWPFDocument();
-      wordFos = new FileOutputStream(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
-    }
-
 
 
     for(int i=0;i<workItemResponse.getValues().size();i++){
@@ -419,22 +476,25 @@ public class ARNBuildProcess implements BuildProcess {
         content = tempFormatString;
         wordContent = content;
         content = content.replaceAll("\\n",eol)+eol+eol;
+
       }
+
 
       logger.message("content : "+content);
 
       if(runnerParameters.get("text_format") != null && runnerParameters.get("text_format").equals("true")) {
-        try {
-          byte[] b1 = content.getBytes();
-          fos.write(b1);
-          logger.message("done");
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
+        /* byte[] b1 = content.getBytes();
+         fos.write(b1);*/
+        out.print(content);
+        out.println("");
+
+        out.flush();
+        logger.message("done");
       }
 
       if(runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
         try {
+
           Paragraph para = new Paragraph();
           para.add(content + eol + eol);
           doc.add(para);
@@ -465,21 +525,15 @@ public class ARNBuildProcess implements BuildProcess {
 
     }
 
-    if(wordFos!=null) {
-      document.write(wordFos);
-    }
-    if(fos!=null) {
-      fos.close();
-    }
-    if(doc!=null) {
+
+
+   /* if(doc!=null) {
       doc.close();
     }
     if(pdfFileout!=null) {
       pdfFileout.close();
-    }
-    if(wordFos!=null) {
-      wordFos.close();
-    }
+    }*/
+
   }
 
 
