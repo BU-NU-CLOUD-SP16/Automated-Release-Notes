@@ -227,6 +227,14 @@ public class ARNBuildProcess implements BuildProcess {
     File file = null;
     PrintWriter out =null;
     try {
+
+      File fileDir = new File(buildCheckoutDir + "\\" + filePath);
+      logger.message("fileDir" + fileDir.toString());
+      if (!fileDir.exists()) {
+        fileDir.mkdir();
+        logger.message("inside make dir");
+      }
+
       if(runnerParameters.get("text_format") !=null && runnerParameters.get("text_format").equals("true")) {
         //fos = new FileOutputStream(buildCheckoutDir+"\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
         FileWriter fw = new FileWriter(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt",true);
@@ -238,12 +246,7 @@ public class ARNBuildProcess implements BuildProcess {
         wordFos = new FileOutputStream(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
       }
 
-      File fileDir = new File(buildCheckoutDir + "\\" + filePath);
-      logger.message("fileDir" + fileDir.toString());
-      if (!fileDir.exists()) {
-        fileDir.mkdir();
-        logger.message("inside make dir");
-      }
+
       if (runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
         file = new File(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
         pdfFileout = new FileOutputStream(file);
