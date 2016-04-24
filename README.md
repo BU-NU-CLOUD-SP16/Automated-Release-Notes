@@ -24,6 +24,5 @@ For more details, there is [documentation](http://confluence.jetbrains.net/displ
 # In this repo you will find 
 ** 
 
-# Dependencies 
-** 
+
 
