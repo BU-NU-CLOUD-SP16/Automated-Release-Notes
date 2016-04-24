@@ -22,7 +22,10 @@ For more details, there is [documentation](http://confluence.jetbrains.net/displ
  * Upload the ARNPlugin.zip file in Teamcity as a plugin, add a build step with ARNRunner and run the build.
 
 # In this repo you will find 
-** 
+* TeamCity server and agent plugin bundle.
+* pre-configured IDEA settings to support references to TeamCity
+* Uses $TeamCityDistribution$ IDEA path variable as path to TeamCity home (unpacked .tar.gz or .exe distribution)
+* Bunch of libraries for most recent needed TeamCity APIs
 
 
 
