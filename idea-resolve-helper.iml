@@ -12,6 +12,9 @@
           <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/buildServerPluginsSupportWeb.xml</file>
           <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/buildServerSpringStatistics.xml</file>
           <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/buildServerSpringWeb.xml</file>
+          <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/build-server-plugin-auto-merge.xml</file>
+          <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/buildServerSpringWebDiag.xml</file>
+          <file>file://$TeamCityDistribution$/webapps/ROOT/WEB-INF/build-server-plugin-statistics-web.xml</file>
         </fileset>
       </configuration>
     </facet>
