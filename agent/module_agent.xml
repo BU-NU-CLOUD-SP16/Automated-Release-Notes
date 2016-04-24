@@ -22,9 +22,11 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.idea-openapi.classpath"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.org.apache.httpcomponents:httpclient:4.5.11.classpath"/>
-    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
+    <path refid="library.com.itextpdf.maven:itextdoc:2.0.0.classpath"/>
+    <path refid="library.fr.opensagres:org.apache.poi.xwpf.converter:0.9.1.classpath"/>
     <path refid="library.junit:junit:4.11.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="agent.runtime.production.module.classpath">
@@ -34,9 +36,11 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.idea-openapi.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
-    <path refid="library.org.apache.httpcomponents:httpclient:4.5.11.classpath"/>
-    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
+    <path refid="library.com.itextpdf.maven:itextdoc:2.0.0.classpath"/>
+    <path refid="library.fr.opensagres:org.apache.poi.xwpf.converter:0.9.1.classpath"/>
     <path refid="library.junit:junit:4.11.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="agent.module.classpath">
@@ -48,9 +52,11 @@
     <path refid="library.idea-openapi.classpath"/>
     <pathelement location="${common.testoutput.dir}"/>
     <pathelement location="${common.output.dir}"/>
-    <path refid="library.org.apache.httpcomponents:httpclient:4.5.11.classpath"/>
-    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
+    <path refid="library.com.itextpdf.maven:itextdoc:2.0.0.classpath"/>
+    <path refid="library.fr.opensagres:org.apache.poi.xwpf.converter:0.9.1.classpath"/>
     <path refid="library.junit:junit:4.11.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="agent.runtime.module.classpath">
@@ -61,9 +67,11 @@
     <path refid="library.log4j.classpath"/>
     <path refid="library.idea-openapi.classpath"/>
     <path refid="common.runtime.module.classpath"/>
-    <path refid="library.org.apache.httpcomponents:httpclient:4.5.11.classpath"/>
-    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
+    <path refid="library.com.itextpdf.maven:itextdoc:2.0.0.classpath"/>
+    <path refid="library.fr.opensagres:org.apache.poi.xwpf.converter:0.9.1.classpath"/>
     <path refid="library.junit:junit:4.11.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   

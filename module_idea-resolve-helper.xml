@@ -135,6 +135,8 @@
     <exclude name="plugins/priority-queue/**"/>
     <exclude name="plugins/priority-queue/js/**"/>
     <exclude name="plugins/priority-queue/css/**"/>
+    <exclude name="plugins/ARNServerPlugin/**"/>
+    <exclude name="plugins/ARNServerPlugin/js/**"/>
     <exclude name="plugins/data-dir-browse/**"/>
     <exclude name="plugins/data-dir-browse/admin/**"/>
     <exclude name="plugins/IDE_Notificator/**"/>

@@ -25,6 +25,8 @@
     <path refid="library.servlet_api.classpath"/>
     <path refid="library.spring.classpath"/>
     <pathelement location="${common.output.dir}"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="server.runtime.production.module.classpath">
@@ -37,6 +39,8 @@
     <path refid="library.servlet_api.classpath"/>
     <path refid="library.spring.classpath"/>
     <path refid="common.runtime.production.module.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="server.module.classpath">
@@ -51,6 +55,8 @@
     <path refid="library.spring.classpath"/>
     <pathelement location="${common.testoutput.dir}"/>
     <pathelement location="${common.output.dir}"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   <path id="server.runtime.module.classpath">
@@ -64,6 +70,8 @@
     <path refid="library.servlet_api.classpath"/>
     <path refid="library.spring.classpath"/>
     <path refid="common.runtime.module.classpath"/>
+    <path refid="library.org.apache.httpcomponents:httpclient:4.5.1.classpath"/>
+    <path refid="library.org.codehaus.jackson:jackson-mapper-asl:1.9.9.classpath"/>
   </path>
   
   
