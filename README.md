@@ -2,7 +2,7 @@
 This is an Open Source Project done by the students of Boston University.Releasing software with a Continuous Integration (CI) Pipeline can greatly increase the speed with which code gets released.This is great for developers to determine the source of a bug in a particular build, but the source control does not hold much value when it comes to communicating the business content of the build. When a build gets deployed, the business wants to know what the content of the build is, so that they know what to test, as well as what can be released to production. This often means a manual step in the CI process is necessary: the developer must look up the work items in the work item tracking software, and enter them manually into the release tracking software. The goal of this project is to eliminate that manual step of entering release notes by integrating the build pipeline with Work Item Tracking software. 
 
 # Features 
-Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). 
+Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). This plugin is able to parse commit messages from Source Control for work items and get data from Work Item Tracking Software(VSTS) to output the work item information to a text file. 
 
 # Installation
 * Download the plugin build (binaries) from https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes/releases/download/ARN1.0/ARNPlugin.zip
@@ -24,9 +24,16 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
  * To build the plugin build plugin-zip which you will find here : Build -> Build Artifacts -> plugin-zip
  * Once plugin-zip artifact is built, you will have a zip file generated in the folder where you extracted the Automated-Release-Notes-master.zip  in Automated-Release-Notes-master\out\artifacts\plugin_zip .
  * Upload the ARNPlugin.zip file in Teamcity as a plugin, logout and restart Teamcity server from local services.
+ 
+# Configuration
  * Once Teamcity server is restarted,go to your project in teamcity then go to Edit Project settings and click on Build inside the Build Configurations. The Build configuration settings will now open, click on Build steps and then add build step.
- * Choose ARN runner as your 'Runner Type', give a step name and set a criteria to execute step. For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated in TeamCity\buildAgent\work\b004cef6b01bb948 once you run the build successfully. Provide appropriate VSTS url,username and password. Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function.
+ * Choose ARN runner as your 'Runner Type', which is an ANT type runner.  
+ * For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated in TeamCity\buildAgent\work\ once you run the build successfully.
+ * Provide appropriate VSTS url,username and password.
+ * Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function. If the textbox is left empty you will have default parameters generated in your text file.
  * Save the build step configuration and run the build.
+  The build step congiguration should look like this:
+ ![Build step Configuration](https://drive.google.com/file/d/0B2pf9i2Fif5KV0pGZGR1VllMZDA/view?usp=sharing)
 
 # In this repo you will find 
 * TeamCity server and agent plugin bundle.
@@ -34,5 +41,9 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
 * Uses $TeamCityDistribution$ IDEA path variable as path to TeamCity home (unpacked .tar.gz or .exe distribution)
 * Bunch of libraries for most recent needed TeamCity APIs
 
+Supported Versions
+==================
 
+Plugin is tested to work with TeamCity 9.1.x 
+Agent and server are expected to run JRE 1.7
 
