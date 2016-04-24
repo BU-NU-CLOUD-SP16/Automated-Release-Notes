@@ -17,8 +17,8 @@ For more details, there is [documentation](http://confluence.jetbrains.net/displ
  * Download project files from the download zip button of this repository,you will have a downloaded file: Automated-Release-Notes-master.zip .
  * Extract the zip file and open the project in IntelliJ IDEA.
  * Add TeamCity distribution path variable, with Name:TeamCityDistribution and Path:Teamcity home directory.
- * Build all artifacts.
- * Once all artifacts are built, you will have a zip file generated in the folder where you extracted the Automated-Release-Notes-master.zip  in Automated-Release-Notes-master\out\artifacts\plugin_zip .
+ * To build the plugin build plugin-zip which you will find here : Build -> Build Artifacts -> plugin-zip
+ * Once plugin-zip artifact is built, you will have a zip file generated in the folder where you extracted the Automated-Release-Notes-master.zip  in Automated-Release-Notes-master\out\artifacts\plugin_zip .
  * Upload the ARNPlugin.zip file in Teamcity as a plugin, add a build step with ARNRunner and run the build.
 
 # In this repo you will find 
