@@ -79,6 +79,12 @@ public class ARNRunner extends RunType{
                 res.add(new InvalidProperty(key, newMessage));
               }
             }
+
+          if(checkFileFormatSelection(properties,res)){
+            final String newMessage = "Select atleast one format";
+            res.add(new InvalidProperty("text_format", newMessage));
+          }
+
         }
       }
 
@@ -112,41 +118,6 @@ public class ARNRunner extends RunType{
         }
       }
 
-      /*private boolean validateTcURL(Map<String, String> properties, String key) {
-
-        String url = properties.get(key);
-        String user = properties.get("tc_user_name");
-        String password = properties.get("tc_password");
-
-        HttpClient httpClient = HttpClientBuilder.create().build();
-
-
-        String authString = user + ":" + password;
-        byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
-        String authStringEnc = new String(authEncBytes);
-
-        HttpGet httpGet = new HttpGet(url);
-        httpGet.setHeader("Accept", "application/json");
-        httpGet.setHeader("Authorization", "Basic " + authStringEnc);
-
-        HttpResponse response = null;
-        try {
-          response = httpClient.execute(httpGet);
-        } catch (IOException e) {
-          e.printStackTrace();
-        }
-        if(response==null){
-          return false;
-        }else if(response.getStatusLine() ==null){
-          return false;
-        }else if(response.getStatusLine().getStatusCode() != 200){
-          return false;
-        }else{
-          return true;
-        }
-
-      }*/
-
       public Collection<InvalidProperty> process(Map<String, String> properties) {
         final Collection<InvalidProperty> result = new ArrayList<InvalidProperty>();
         if (properties == null) return result;
@@ -160,6 +131,18 @@ public class ARNRunner extends RunType{
         //checkNotEmpty(properties, "tc_password", "Teamcity Password must be specified", result);
 
         return result;
+      }
+
+      private boolean checkFileFormatSelection(@NotNull  Map<String, String> properties,@NotNull final Collection<InvalidProperty> res) {
+
+        String textFlag =  properties.get("text_format");
+        String pdfFlag = properties.get("pdf_format");
+        String docFlag = properties.get("doc_format");
+
+        if(textFlag == null && pdfFlag == null && docFlag == null) {
+          return true;
+        }
+        return false;
       }
     };
   }
@@ -183,9 +166,5 @@ public class ARNRunner extends RunType{
     return defaults;
   }
 
-  @Override
-  public String describeParameters(@NotNull final Map<String, String> parameters){
 
-    return "File Path: file_path";
-  }
 }

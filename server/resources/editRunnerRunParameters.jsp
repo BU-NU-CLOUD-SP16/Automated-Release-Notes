@@ -100,11 +100,14 @@
         Release Notes file formats: </label>
     </th>
     <td>
-        <props:checkboxProperty name="text_format" /> Text
         <span class="error" id="error_text_format"></span>
+        <props:checkboxProperty name="text_format" /> Text
+
         <props:checkboxProperty name="pdf_format" /> PDF
-        <span class="error" id="error_pdf_format"></span>
+
         <props:checkboxProperty name="doc_format" /> Doc
+        <span class="error" id="error_pdf_format"></span>
+
         <span class="error" id="error_doc_format}"></span>
     </td>
 </tr>
