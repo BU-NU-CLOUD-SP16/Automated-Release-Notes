@@ -23,7 +23,10 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
  * Add TeamCity distribution path variable, with Name:TeamCityDistribution and Path:Teamcity home directory.
  * To build the plugin build plugin-zip which you will find here : Build -> Build Artifacts -> plugin-zip
  * Once plugin-zip artifact is built, you will have a zip file generated in the folder where you extracted the Automated-Release-Notes-master.zip  in Automated-Release-Notes-master\out\artifacts\plugin_zip .
- * Upload the ARNPlugin.zip file in Teamcity as a plugin, add a build step with ARNRunner and run the build.
+ * Upload the ARNPlugin.zip file in Teamcity as a plugin, logout and restart Teamcity server from local services.
+ * Once Teamcity server is restarted,go to your project in teamcity then go to Edit Project settings and click on Build inside the Build Configurations. The Build configuration settings will now open, click on Build steps and then add build step.
+ * Choose ARN runner as your 'Runner Type', give a step name and set a criteria to execute step. For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated in TeamCity\buildAgent\work\b004cef6b01bb948 once you run the build successfully. Provide appropriate VSTS url,username and password. Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function.
+ * Save the build step configuration and run the build.
 
 # In this repo you will find 
 * TeamCity server and agent plugin bundle.
