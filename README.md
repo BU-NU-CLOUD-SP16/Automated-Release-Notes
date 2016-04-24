@@ -14,7 +14,11 @@ Plugin is an efficient tool to eliminate the manual step of entering release not
 For more details, there is [documentation](http://confluence.jetbrains.net/display/TCD7/Installing+Additional+Plugins)
 
 # Building
- * Download project files from the download zip button of this repository,you will have a downloaded file: Automated-Release-Notes-master.zip .
+ * Download project files from the download zip button of this repository,you will have a downloaded file: Automated-Release-Notes-master.zip . 
+ * Or use git clone: 
+```console
+git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
+```
  * Extract the zip file and open the project in IntelliJ IDEA.
  * Add TeamCity distribution path variable, with Name:TeamCityDistribution and Path:Teamcity home directory.
  * To build the plugin build plugin-zip which you will find here : Build -> Build Artifacts -> plugin-zip
