@@ -33,7 +33,7 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
  * Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function. If the textbox is left empty you will have default parameters generated in your text file.
  * Save the build step configuration and run the build.
   The build step congiguration should look like this:
- ![Build step Configuration](https://drive.google.com/file/d/0B2pf9i2Fif5KV0pGZGR1VllMZDA/view?usp=sharing)
+ ![Build step Configuration](https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes/blob/master/docs/BuildSteppng.png)
 
 # In this repo you will find 
 * TeamCity server and agent plugin bundle.
