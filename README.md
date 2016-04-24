@@ -5,7 +5,7 @@ This is an Open Source Project done by the students of Boston University.Releasi
 Plugin is an efficient tool to eliminate the manual step of entering release notes by integrating the build pipeline(Teamcity) with work item tracking software(Visual Studio). 
 
 # Installation
-* Download the plugin build (binaries) from https://drive.google.com/a/bu.edu/file/d/0B2FiyfgYqIm8a0dlT2RDb1RCMHM/view?usp=sharing
+* Download the plugin build (binaries) from https://docs.google.com/a/bu.edu/uc?authuser=0&id=0B2FiyfgYqIm8SjU3eFh5eWh4aFU&export=download
 * Make sure downloaded .zip file is not corrupted
 * Put the downloaded plugin .zip file into <TeamCity Data Directory>/plugins folder
 * Restart the TeamCity Server
