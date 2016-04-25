@@ -28,7 +28,7 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
 # Configuration
  * Once Teamcity server is restarted,go to your project in teamcity then go to Edit Project settings and click on Build inside the Build Configurations. The Build configuration settings will now open, click on Build steps and then add build step.
  * Choose ARN runner as your 'Runner Type', which is an ANT type runner.  
- * For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated in TeamCity\buildAgent\work\ once you run the build successfully.
+ * For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated relative to the [checkout directory](https://confluence.jetbrains.com/display/TCD9/Build+Checkout+Directory).
  * Provide appropriate VSTS url,username and password.
  * Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function. If the textbox is left empty you will have default parameters generated in your text file.
  * Save the build step configuration and run the build.
@@ -44,6 +44,6 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
 Supported Versions
 ==================
 
-Plugin is tested to work with TeamCity 9.1.x 
-Agent and server are expected to run JRE 1.7
+* Plugin is tested to work with TeamCity 9.1.x 
+* Agent and server are expected to run JRE 1.7
 
