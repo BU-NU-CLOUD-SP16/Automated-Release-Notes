@@ -10,7 +10,7 @@ Plugin is an efficient tool to eliminate the manual step of entering release not
 * Agent and server are expected to run JRE 1.7
 
 # Installation
-* Download the plugin build (binaries) from https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes/releases/download/ARN1.0/ARNPlugin.zip
+* Download the plugin build (binaries) from https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes/releases/download/ARN1.0.1/ARNPlugin.zip
 * Make sure downloaded .zip file is not corrupted
 * Put the downloaded plugin .zip file into <TeamCity Data Directory>/plugins folder
 * Restart the TeamCity Server
