@@ -54,7 +54,7 @@ public class ARNRunner extends RunType{
 
   @NotNull
   public String getDisplayName() {
-    return "ARNRunner";
+    return "Automated Release Notes";
   }
 
   @NotNull
