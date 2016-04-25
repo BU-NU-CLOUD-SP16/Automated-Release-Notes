@@ -85,33 +85,6 @@ public class GetBuildDetails {
 	    
 	    return workItems;
 	}
-	
-	/*public static String getLatestBuild() throws ClientProtocolException, IOException, ParserConfigurationException, SAXException{
-		String bNumber;
-		HttpClient httpClient = HttpClientBuilder.create().build();
-		String url = "http://localhost/httpAuth/api/buildTypes/id:CloudcomputingARN_BuildF/builds?count=1";
-		String userName = "karunesh";
-	    String password = "teamcity";
-	    String authString = userName + ":" + password;
-	    byte[] authEncBytes = Base64.encodeBase64(authString.getBytes());
-	    String authStringEnc = new String(authEncBytes);
-	    
-	    HttpGet httpGet = new HttpGet(url);
-	    //shttpGet.setHeader("Accept", "application/json");
-	    httpGet.setHeader("Authorization", "Basic " + authStringEnc);
-	    
-	    HttpResponse response = httpClient.execute(httpGet);
-	    InputStream responseStream = response.getEntity().getContent();
-	   	    
-	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-	    DocumentBuilder db = dbf.newDocumentBuilder();
-	    Document doc = db.parse(responseStream);
-	    Element e  = (Element)doc.getDocumentElement().getElementsByTagName("build").item(0);
-	    bNumber = e.getAttribute("number");
-	    
-	    
-	    return bNumber;
-		
-	}*/
+
 
 }

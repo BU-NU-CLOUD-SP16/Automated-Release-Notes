@@ -78,9 +78,9 @@ public class ARNBuildProcess implements BuildProcess {
     logger.message("Build No. :"+ buildNo);
     ArrayList<String> workItems = new ArrayList<String>();
     final Map<String, String> runnerParameters = context.getRunnerParameters();
-    for(String s : runnerParameters.keySet()){
+    /*for(String s : runnerParameters.keySet()){
       logger.message("Key : "+ s + "value : "+ runnerParameters.get(s));
-    }
+    }*/
 
     final Map<String, String> parameters = context.getBuildParameters().getAllParameters();
 
@@ -96,12 +96,12 @@ public class ARNBuildProcess implements BuildProcess {
     buildCheckoutDir = runnerParameters.get("teamcity.build.checkoutDir");
 
 
-    for(String s : parameters.keySet()){
+    /*for(String s : parameters.keySet()){
       logger.message("Key Build : "+ s + "value : "+ parameters.get(s));
-    }
+    }*/
     //this.filePath = parameters.get("system.agent.work.dir");
     this.filePath = runnerParameters.get("file_path");
-    logger.message("filePath :"+this.filePath);
+    /*logger.message("filePath :"+this.filePath);*/
     logger.message("getting work items");
 
     try {
@@ -229,10 +229,8 @@ public class ARNBuildProcess implements BuildProcess {
     try {
 
       File fileDir = new File(buildCheckoutDir + "\\" + filePath);
-      logger.message("fileDir" + fileDir.toString());
       if (!fileDir.exists()) {
         fileDir.mkdir();
-        logger.message("inside make dir");
       }
 
       if(runnerParameters.get("text_format") !=null && runnerParameters.get("text_format").equals("true")) {
@@ -335,8 +333,8 @@ public class ARNBuildProcess implements BuildProcess {
 
         if(workItemResponse!=null) {
           if(workItemResponse.getValues() !=null && workItemResponse.getValues().size() >0 ) {
-            logger.message("size : " + workItemResponse.getValues().size());
-            logger.message(workItemResponse.getValues().get(0).getId());
+            /*logger.message("size : " + workItemResponse.getValues().size());
+            logger.message(workItemResponse.getValues().get(0).getId());*/
             try {
               createFormattedFile(workItemResponse, runnerParameters, doc,document,out);
             } catch (DocumentException e) {
@@ -483,7 +481,7 @@ public class ARNBuildProcess implements BuildProcess {
       }
 
 
-      logger.message("content : "+content);
+      //logger.message("content : "+content);
 
       if(runnerParameters.get("text_format") != null && runnerParameters.get("text_format").equals("true")) {
         /* byte[] b1 = content.getBytes();
@@ -492,7 +490,7 @@ public class ARNBuildProcess implements BuildProcess {
         out.println("");
 
         out.flush();
-        logger.message("done");
+
       }
 
       if(runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
@@ -512,7 +510,6 @@ public class ARNBuildProcess implements BuildProcess {
         //run.setFontSize(18);
 
         if (wordContent.contains("\n")) {
-          logger.message("in the if");
           String[] lines = wordContent.split("\n");
           run.setText(lines[0], 0); // set first line into XWPFRun
           for (int j = 1; j < lines.length; j++) {
@@ -521,7 +518,6 @@ public class ARNBuildProcess implements BuildProcess {
             run.setText(lines[j]);
           }
         } else {
-          logger.message("in the else");
           run.setText(wordContent, 0);
         }
       }
