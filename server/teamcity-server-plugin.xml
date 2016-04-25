@@ -3,11 +3,11 @@
                  xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
   <info>
     <name>ARNServerPlugin</name>
-    <display-name>ARNServerPlugin</display-name>
-    <version>1.0</version> <!-- will be replaced from script -->
+    <display-name>Automated Release Notes</display-name>
+    <version>1.0.1</version> <!-- will be replaced from script -->
     <vendor>
       <name>BU</name>  <!-- will be replaced from script -->
-      <url>@Plugin_Vendor_Url@</url> <!-- will be replaced from script -->
+      <url>https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes</url> <!-- will be replaced from script -->
     </vendor>
   </info>
   <deployment use-separate-classloader="true"/>
