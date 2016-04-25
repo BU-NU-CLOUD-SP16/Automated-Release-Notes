@@ -27,10 +27,13 @@
 </tr>
 <tr>
     <th>
-        <label for="file_path">File Path relative to Checkout Directory: </label>
+        <label for="file_path">Output File Path :</label>
     </th>
     <td>
         <props:textProperty name="file_path" style="width:32em;"/>
+      <span class="smallNote">
+          Path should be relative to the checkout directory
+         </span>
         <span class="error" id="error_file_path"></span>
     </td>
 </tr>
@@ -114,10 +117,13 @@
 
 <tr>
     <th>
-        Format String:
+        Format String (Optional):
     </th>
     <td>
-        <props:multilineProperty name="format_string" rows="5" cols="50" linkTitle="Format String Template" expanded="true"  />
+        <props:multilineProperty name="format_string" rows="5" cols="50" linkTitle="Format String Template" expanded="true" value="Work Item: \${WorkItemId} - \${WorkItemTitle}
+\${WorkItemDescription}
+Done by: \${WorkItemAssignedTo}
+Story Points: \${WorkItemStoryPoints}"/>
         <span class="smallNote">
 
          </span>

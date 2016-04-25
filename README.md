@@ -29,12 +29,12 @@ git clone https://github.com/BU-NU-CLOUD-SP16/Automated-Release-Notes
  * Add TeamCity distribution path variable, with Name:TeamCityDistribution and Path:Teamcity home directory.
  * To build the plugin build plugin-zip which you will find here : Build -> Build Artifacts -> plugin-zip
  * Once plugin-zip artifact is built, you will have a zip file generated in the folder where you extracted the Automated-Release-Notes-master.zip  in Automated-Release-Notes-master\out\artifacts\plugin_zip .
- * Upload the ARNPlugin.zip file in Teamcity as a plugin, logout and restart Teamcity server .
+ * Upload the ARNPlugin.zip file in Teamcity as a plugin, logout and restart Teamcity server. For more details regarding installing the plugin, there is teamcity [documentation](http://confluence.jetbrains.net/display/TCD7/Installing+Additional+Plugins)
  
 # Configuration
  * Once Teamcity server is restarted,go to your project in teamcity then go to Edit Project settings and click on Build inside the Build Configurations. The Build configuration settings will now open, click on Build steps and then add build step.
  * Choose ARN runner as your 'Runner Type', which is an ANT type runner.  
- * For 'File Path relative to Checkout Directory' choose a Folder name where you want the release notes to be generated.This file will be generated relative to the [checkout directory](https://confluence.jetbrains.com/display/TCD9/Build+Checkout+Directory).
+ * For 'Output File Path' specify a folder name where you want the release notes to be generated.The output file(s) will be generated relative to the [checkout directory](https://confluence.jetbrains.com/display/TCD9/Build+Checkout+Directory).
  * Provide appropriate VSTS url,username and password.
  * Select the release notes file format ie. doc,pdf or text type. Enter format string, for more information on format string click on the button 'information about format string', disable ad blocker or pop-up blocker if the button doesn't function. If the textbox is left empty you will have default parameters generated in your text file.
  * Save the build step configuration and run the build.
