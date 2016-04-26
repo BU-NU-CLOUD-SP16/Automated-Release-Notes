@@ -228,25 +228,38 @@ public class ARNBuildProcess implements BuildProcess {
     PrintWriter out =null;
     try {
 
-      File fileDir = new File(buildCheckoutDir + "\\" + filePath);
-      if (!fileDir.exists()) {
-        fileDir.mkdir();
+
+
+
+      String fullpath = this.buildCheckoutDir + File.separator + this.filePath;
+      if(fullpath.contains(File.separator))
+      {
+        logger.message("in create dir");
+        String dir = fullpath.substring(0, fullpath.lastIndexOf(File.separator));
+        logger.message("directory :"+ dir);
+        String fileName = fullpath.substring(fullpath.lastIndexOf(File.separator));
+        logger.message("fileName :"+fileName);
+        File fileDir = new File(dir);
+        if (!fileDir.exists()) {
+          logger.message("creating dir");
+          fileDir.mkdirs();
+        }
       }
 
       if(runnerParameters.get("text_format") !=null && runnerParameters.get("text_format").equals("true")) {
         //fos = new FileOutputStream(buildCheckoutDir+"\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".txt");
-        FileWriter fw = new FileWriter(buildCheckoutDir+"\\" +filePath + "\\Release_Notes_Build"+runningBuild.getBuildNumber()+".txt",true);
+        FileWriter fw = new FileWriter(fullpath +".txt",true);
         BufferedWriter bw = new BufferedWriter(fw);
         out = new PrintWriter(bw);
       }
       if (runnerParameters.get("doc_format") != null && runnerParameters.get("doc_format").equals("true")) {
         document = new XWPFDocument();
-        wordFos = new FileOutputStream(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".doc");
+        wordFos = new FileOutputStream(fullpath + ".doc");
       }
 
 
       if (runnerParameters.get("pdf_format") != null && runnerParameters.get("pdf_format").equals("true")) {
-        file = new File(buildCheckoutDir + "\\" + filePath + "\\Release_Notes_Build" + runningBuild.getBuildNumber() + ".pdf");
+        file = new File(fullpath + ".pdf");
         pdfFileout = new FileOutputStream(file);
         doc = new Document();
 
@@ -523,15 +536,6 @@ public class ARNBuildProcess implements BuildProcess {
       }
 
     }
-
-
-
-   /* if(doc!=null) {
-      doc.close();
-    }
-    if(pdfFileout!=null) {
-      pdfFileout.close();
-    }*/
 
   }
 
